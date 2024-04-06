@@ -17,29 +17,28 @@
 	🚧  Miner tycoon 🚀 Under construction...  🚧
 </h4> 
 
-
-
-
 ## 💭 About ##
 
 I am bored, so I'm doing random projects in random languages,
-so this time I tried my best to do some kind of Windows like paint software, but on a webpage with JS
+so this time I tried my best to do some kind of cliker style game.
 
 ## ✨ Features ##
 
-✅ Color picker;\
-✅ Paint tool;\
-✅ Eraser;\
-✅ Paint tool size;\
-✅ Bucket;\
-✅ Image export;\
+❌ Playable game;\
+❌ Shop;\
+❌ Currency;\
+❌ Click something to get coins;\
+❌ Things get more expensive the more you have;\
+❌ Clicking upgrades;\
+❌ Item upgrades;\
+❌ AFK income;\
+
 
 
 ## 🚀 Technologies ##
 
 The following tools were used in this project:
 
-- [Bootstrap 5](https://getbootstrap.com/)
-- [pi5.js](https://p5js.org/)
+- [Godot engine](https://godotengine.org/)
 
 
