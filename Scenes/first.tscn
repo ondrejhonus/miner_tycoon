@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyesp2fngpjbj"]
+[gd_scene load_steps=6 format=3 uid="uid://cyesp2fngpjbj"]
 
 [ext_resource type="Texture2D" uid="uid://6ekq3gxdbppi" path="res://sprites/ground.png" id="1_0aun0"]
 [ext_resource type="Texture2D" uid="uid://c662x1ur5uixi" path="res://sprites/gold-ore.png" id="2_vvn7b"]
 [ext_resource type="Texture2D" uid="uid://b283k4s6x2t2a" path="res://sprites/cursor.png" id="3_w8fyv"]
 [ext_resource type="Texture2D" uid="uid://emc05tekq3o4" path="res://sprites/miner.png" id="4_3nisy"]
+[ext_resource type="Texture2D" uid="uid://bqrbfmebubx62" path="res://sprites/drill.png" id="5_42csk"]
 
 [node name="first" type="Node2D"]
 position = Vector2(0, -4)
@@ -58,7 +59,7 @@ text = "SHOP"
 scroll_active = false
 
 [node name="Miner" type="Sprite2D" parent="Shop"]
-position = Vector2(40, 72)
+position = Vector2(40, 96)
 scale = Vector2(1.75, 1.75)
 texture = ExtResource("4_3nisy")
 
@@ -70,3 +71,37 @@ offset_bottom = 502.0
 scale = Vector2(0.035, 0.035)
 theme_override_font_sizes/normal_font_size = 371
 text = "Miner"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Shop/Miner"]
+offset_left = 18.2857
+offset_top = -4.57143
+offset_right = 1211.29
+offset_bottom = 731.429
+scale = Vector2(0.025, 0.025)
+theme_override_colors/default_color = Color(0.615686, 0.615686, 0.615686, 1)
+theme_override_font_sizes/normal_font_size = 416
+text = "5 cps"
+
+[node name="Drill" type="Sprite2D" parent="."]
+position = Vector2(928, 292)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("5_42csk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Drill"]
+offset_left = 266.667
+offset_top = -266.667
+offset_right = 1364.67
+offset_bottom = 253.333
+scale = Vector2(0.52, 0.52)
+theme_override_font_sizes/normal_font_size = 371
+text = "Drill"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Drill"]
+offset_left = 267.0
+offset_top = -67.0
+offset_right = 2172.0
+offset_bottom = 494.0
+scale = Vector2(0.35, 0.35)
+theme_override_colors/default_color = Color(0.615686, 0.615686, 0.615686, 1)
+theme_override_font_sizes/normal_font_size = 416
+text = "50 cps"
