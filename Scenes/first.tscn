@@ -1,107 +1,217 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyesp2fngpjbj"]
+[gd_scene load_steps=12 format=3 uid="uid://cyesp2fngpjbj"]
 
 [ext_resource type="Texture2D" uid="uid://6ekq3gxdbppi" path="res://sprites/ground.png" id="1_0aun0"]
+[ext_resource type="Script" path="res://Scenes/first.gd" id="1_qyulj"]
 [ext_resource type="Texture2D" uid="uid://c662x1ur5uixi" path="res://sprites/gold-ore.png" id="2_vvn7b"]
+[ext_resource type="Texture2D" uid="uid://r3s1w5nfspbr" path="res://sprites/hand.png" id="3_h17m5"]
 [ext_resource type="Texture2D" uid="uid://b283k4s6x2t2a" path="res://sprites/cursor.png" id="3_w8fyv"]
 [ext_resource type="Texture2D" uid="uid://emc05tekq3o4" path="res://sprites/miner.png" id="4_3nisy"]
 [ext_resource type="Texture2D" uid="uid://bqrbfmebubx62" path="res://sprites/drill.png" id="5_42csk"]
+[ext_resource type="Texture2D" uid="uid://cxxn2x3km0ylb" path="res://sprites/pickaxe.png" id="5_qgg7x"]
 
-[node name="first" type="Node2D"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjw4j"]
+texture = ExtResource("2_vvn7b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b64e4"]
+texture = ExtResource("2_vvn7b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vp70m"]
+texture = ExtResource("2_vvn7b")
+region_rect = Rect2(-47.7719, -77.9045, 613.272, 648.391)
+
+[node name="Node" type="Node2D"]
 position = Vector2(0, -4)
+script = ExtResource("1_qyulj")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Canvas" type="CanvasLayer" parent="."]
 
-[node name="Ground" type="Sprite2D" parent="."]
-position = Vector2(576, 328)
+[node name="Ground" type="Sprite2D" parent="Canvas"]
+position = Vector2(576, 324)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_0aun0")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 16.0
-offset_top = 228.0
-offset_right = 610.0
-offset_bottom = 457.0
+[node name="DisplayToolsRect" type="ColorRect" parent="Canvas"]
+offset_left = 456.0
+offset_top = 128.0
+offset_right = 888.0
+offset_bottom = 640.0
+color = Color(0, 0, 0, 0.211765)
+
+[node name="ClickingRect" type="ColorRect" parent="Canvas"]
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 448.0
+offset_bottom = 640.0
+color = Color(0, 0, 0, 0.211765)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas/ClickingRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 1144.0
+offset_bottom = 368.0
 scale = Vector2(0.35, 0.35)
 theme_override_font_sizes/normal_font_size = 111
-text = "XXX Coins"
-scroll_active = false
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
 
-[node name="TextureButton" type="TextureButton" parent="."]
-offset_left = 64.0
-offset_top = 324.0
-offset_right = 553.0
-offset_bottom = 834.0
-scale = Vector2(0.27, 0.27)
-texture_normal = ExtResource("2_vvn7b")
+[node name="ButtonRect" type="ColorRect" parent="Canvas/ClickingRect"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 192.0
+offset_right = 312.0
+offset_bottom = 384.0
+color = Color(0, 0, 0, 0.211765)
 
-[node name="Cursor" type="Sprite2D" parent="TextureButton"]
-position = Vector2(444.444, 296.296)
+[node name="Button3" type="Button" parent="Canvas/ClickingRect"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 192.0
+offset_right = 312.0
+offset_bottom = 384.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_rjw4j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_b64e4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vp70m")
+
+[node name="Cursor" type="Sprite2D" parent="Canvas/ClickingRect/Button3"]
+visible = false
+position = Vector2(144, 120)
 rotation = -0.418879
-scale = Vector2(0.444444, 0.444444)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_w8fyv")
 
-[node name="Shop" type="ColorRect" parent="."]
-offset_left = 888.0
-offset_top = 132.0
+[node name="ShopRect" type="ColorRect" parent="Canvas"]
+offset_left = 896.0
+offset_top = 128.0
 offset_right = 1152.0
-offset_bottom = 652.0
-color = Color(0, 0, 0, 0.396078)
+offset_bottom = 640.0
+color = Color(0, 0, 0, 0.211765)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Shop"]
-layout_mode = 0
-offset_left = 88.0
-offset_top = -8.0
-offset_right = 497.0
-offset_bottom = 196.0
+[node name="RichTextLabel2" type="RichTextLabel" parent="Canvas"]
+offset_left = 976.0
+offset_top = 120.0
+offset_right = 1385.0
+offset_bottom = 324.0
 scale = Vector2(0.235, 0.235)
 theme_override_font_sizes/normal_font_size = 151
 text = "SHOP"
 scroll_active = false
 
-[node name="Miner" type="Sprite2D" parent="Shop"]
-position = Vector2(40, 96)
-scale = Vector2(1.75, 1.75)
-texture = ExtResource("4_3nisy")
+[node name="ScrollContainer" type="ScrollContainer" parent="Canvas"]
+clip_contents = false
+custom_minimum_size = Vector2(63.365, 82.735)
+offset_left = 912.0
+offset_top = 168.0
+offset_right = 1153.0
+offset_bottom = 640.0
+follow_focus = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Shop/Miner"]
-offset_left = 18.0
-offset_top = -18.0
-offset_right = 1116.0
-offset_bottom = 502.0
-scale = Vector2(0.035, 0.035)
-theme_override_font_sizes/normal_font_size = 371
-text = "Miner"
+[node name="Control" type="Control" parent="Canvas/ScrollContainer"]
+custom_minimum_size = Vector2(191.98, 397.085)
+layout_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Shop/Miner"]
-offset_left = 18.2857
-offset_top = -4.57143
-offset_right = 1211.29
-offset_bottom = 731.429
-scale = Vector2(0.025, 0.025)
-theme_override_colors/default_color = Color(0.615686, 0.615686, 0.615686, 1)
-theme_override_font_sizes/normal_font_size = 416
-text = "5 cps"
+[node name="CursorUpgrade" type="Button" parent="Canvas/ScrollContainer/Control"]
+layout_mode = 2
+offset_right = 232.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.254902, 0.690196, 0.756863, 1)
+theme_override_constants/outline_size = 1
+text = "Upgrade cursor"
+icon = ExtResource("3_w8fyv")
+alignment = 0
+expand_icon = true
 
-[node name="Drill" type="Sprite2D" parent="."]
-position = Vector2(928, 292)
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("5_42csk")
+[node name="HandBtn" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 64.0
+offset_right = 232.0
+offset_bottom = 118.0
+text = "Hand
+5 cps"
+icon = ExtResource("3_h17m5")
+alignment = 0
+expand_icon = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Drill"]
-offset_left = 266.667
-offset_top = -266.667
-offset_right = 1364.67
-offset_bottom = 253.333
-scale = Vector2(0.52, 0.52)
-theme_override_font_sizes/normal_font_size = 371
-text = "Drill"
+[node name="PickaxeBtn" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 128.0
+offset_right = 232.0
+offset_bottom = 182.0
+text = "Pickaxe | 
+100 cps"
+icon = ExtResource("5_qgg7x")
+alignment = 0
+expand_icon = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Drill"]
-offset_left = 267.0
-offset_top = -67.0
-offset_right = 2172.0
-offset_bottom = 494.0
-scale = Vector2(0.35, 0.35)
-theme_override_colors/default_color = Color(0.615686, 0.615686, 0.615686, 1)
-theme_override_font_sizes/normal_font_size = 416
-text = "50 cps"
+[node name="MinerBtn" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 192.0
+offset_right = 232.0
+offset_bottom = 248.0
+text = "Miner |
+500 cps"
+icon = ExtResource("4_3nisy")
+alignment = 0
+expand_icon = true
+
+[node name="DrillBtn" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 256.0
+offset_right = 232.0
+offset_bottom = 312.0
+text = "Drill
+30 cps"
+icon = ExtResource("5_42csk")
+alignment = 0
+expand_icon = true
+
+[node name="Button1" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 320.0
+offset_right = 232.0
+offset_bottom = 376.0
+icon = ExtResource("2_vvn7b")
+alignment = 0
+expand_icon = true
+
+[node name="Button2" type="Button" parent="Canvas/ScrollContainer/Control"]
+visible = false
+layout_mode = 2
+offset_top = 384.0
+offset_right = 232.0
+offset_bottom = 440.0
+icon = ExtResource("2_vvn7b")
+alignment = 0
+expand_icon = true
+
+[node name="Notification" type="RichTextLabel" parent="Canvas"]
+z_index = 14
+offset_left = 64.0
+offset_top = 536.0
+offset_right = 384.0
+offset_bottom = 592.0
+bbcode_enabled = true
+fit_content = true
+
+[node name="ColorRect" type="ColorRect" parent="Canvas/Notification"]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 56.0
+color = Color(0, 0, 0, 0.407843)
+
+[connection signal="pressed" from="Canvas/ClickingRect/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/HandBtn" to="." method="_on_hand_btn_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/PickaxeBtn" to="." method="_on_pickaxe_btn_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/MinerBtn" to="." method="_on_miner_btn_pressed"]
+[connection signal="meta_hover_ended" from="Canvas/Notification" to="." method="_on_notification_meta_hover_ended"]
+[connection signal="mouse_exited" from="Canvas/Notification" to="." method="_on_notification_mouse_exited"]
+[connection signal="mouse_exited" from="Canvas/Notification/ColorRect" to="." method="_on_color_rect_mouse_exited"]
+[connection signal="visibility_changed" from="Canvas/Notification/ColorRect" to="." method="_on_color_rect_visibility_changed"]

@@ -40,5 +40,6 @@ so this time I tried my best to do some kind of cliker style game.
 The following tools were used in this project:
 
 - [Godot engine](https://godotengine.org/)
+- [Big numbers](https://github.com/ChronoDK/GodotBigNumberClass)
 
 
