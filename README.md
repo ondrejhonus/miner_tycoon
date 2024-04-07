@@ -29,6 +29,7 @@ so this time I tried my best to do some kind of cliker style game.
 ✅ Coins;\
 🟧 Click something to get coins;\
 ✅ Things get more expensive the more you have;\
+🟧 Handle big numbers;\
 🟧 Cursor upgrades;\
 ❌ Item upgrades;\
 ❌ Saves;\
