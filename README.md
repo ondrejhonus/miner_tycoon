@@ -24,14 +24,16 @@ so this time I tried my best to do some kind of cliker style game.
 
 ## ✨ Features ##
 
-❌ Playable game;\
-❌ Shop;\
-❌ Currency;\
-❌ Click something to get coins;\
-❌ Things get more expensive the more you have;\
-❌ Clicking upgrades;\
+✅ Playable game;\
+✅ Shop;\
+✅ Coins;\
+🟧 Click something to get coins;\
+✅ Things get more expensive the more you have;\
+🟧 Cursor upgrades;\
 ❌ Item upgrades;\
+❌ Saves;\
 ❌ AFK income;\
+❌ Leaderboard;\
 
 
 

@@ -14,7 +14,7 @@ var pickaxePrice = 1000
 var minerPower = 500
 var minerPrice = 1000000
 
-var big = Big.new(12345,12)
+#var big = Big.new(12345,12)
 
 func _ready():
 	$Canvas/ClickingRect/RichTextLabel.text =  "[center]%d coins
