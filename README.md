@@ -33,10 +33,13 @@ so this time I tried my best to do some kind of cliker style game.
 🟧 Cursor upgrades;\
 ❌ Item upgrades;\
 ❌ Saves;\
+❌ Autosaves;\
+❌ Good graphics (maybe pixel art);\
+❌ BG music;\
 ❌ AFK income;\
 ❌ Leaderboard;\
-
-
+❌ Ascensions;\
+❌ Import/Export save;\
 
 ## 🚀 Technologies ##
 
