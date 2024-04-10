@@ -24,13 +24,13 @@ so this time I tried my best to do some kind of cliker style game.
 
 ## ✨ Features ##
 
-✅ Playable game;\
-✅ Shop;\
+🟧 Playable game;\
+🟧 Shop;\
 ✅ Coins;\
-🟧 Click something to get coins;\
+✅ Click something to get coins;\
 ✅ Things get more expensive the more you have;\
-🟧 Handle big numbers;\
-🟧 Cursor upgrades;\
+✅ Handle big numbers;\
+✅ Cursor upgrades;\
 ❌ Item upgrades;\
 ❌ Saves;\
 ❌ Autosaves;\

@@ -21,28 +21,122 @@ const suffixes_metric_symbol: Dictionary = {
 	"0": "", 
 	"1": "k", 
 	"2": "M", 
-	"3": "G", 
+	"3": "B", 
 	"4": "T", 
-	"5": "P", 
-	"6": "E", 
-	"7": "Z", 
-	"8": "Y", 
-	"9": "R", 
-	"10": "Q",
+	"5": "Qd", 
+	"6": "Qi", 
+	"7": "Sx", 
+	"8": "Sp", 
+	"9": "Oc", 
+	"10": "No",
+	"11": "Dc",
+	"12": "ah", 
+	"13": "ai", 
+	"14": "aj", 
+	"15": "ak", 
+	"16": "al", 
+	"17": "am", 
+	"18": "an", 
+	"19": "ao", 
+	"20": "ap", 
+	"21": "aq", 
+	"22": "ar", 
+	"23": "as", 
+	"24": "at", 
+	"25": "au", 
+	"26": "av", 
+	"27": "aw", 
+	"28": "ax", 
+	"29": "ay", 
+	"30": "az", 
+	"31": "ba", 
+	"32": "bb", 
+	"33": "bc", 
+	"34": "bd", 
+	"35": "be", 
+	"36": "bf", 
+	"37": "bg", 
+	"38": "bh", 
+	"39": "bi", 
+	"40": "bj", 
+	"41": "bk", 
+	"42": "bl", 
+	"43": "bm", 
+	"44": "bn", 
+	"45": "bo", 
+	"46": "bp", 
+	"47": "bq", 
+	"48": "br", 
+	"49": "bs", 
+	"50": "bt", 
+	"51": "bu", 
+	"52": "bv", 
+	"53": "bw", 
+	"54": "bx", 
+	"55": "by", 
+	"56": "bz", 
+	"57": "ca"
 }
 ## Metric Name Suffixes
 const suffixes_metric_name: Dictionary = {
 	"0": "", 
-	"1": "kilo", 
-	"2": "mega", 
-	"3": "giga", 
-	"4": "tera", 
-	"5": "peta", 
-	"6": "exa", 
-	"7": "zetta", 
-	"8": "yotta", 
-	"9": "ronna", 
-	"10": "quetta", 
+	"1": " thousand", 
+	"2": " million", 
+	"3": " billion", 
+	"4": " trillion", 
+	"5": " quadrillion", 
+	"6": " quintillion", 
+	"7": " sextillion", 
+	"8": " septillion", 
+	"9": " octillion", 
+	"10": " nonillion",
+	"11": " decillion",
+	"12": "ah", 
+	"13": "ai", 
+	"14": "aj", 
+	"15": "ak", 
+	"16": "al", 
+	"17": "am", 
+	"18": "an", 
+	"19": "ao", 
+	"20": "ap", 
+	"21": "aq", 
+	"22": "ar", 
+	"23": "as", 
+	"24": "at", 
+	"25": "au", 
+	"26": "av", 
+	"27": "aw", 
+	"28": "ax", 
+	"29": "ay", 
+	"30": "az", 
+	"31": "ba", 
+	"32": "bb", 
+	"33": "bc", 
+	"34": "bd", 
+	"35": "be", 
+	"36": "bf", 
+	"37": "bg", 
+	"38": "bh", 
+	"39": "bi", 
+	"40": "bj", 
+	"41": "bk", 
+	"42": "bl", 
+	"43": "bm", 
+	"44": "bn", 
+	"45": "bo", 
+	"46": "bp", 
+	"47": "bq", 
+	"48": "br", 
+	"49": "bs", 
+	"50": "bt", 
+	"51": "bu", 
+	"52": "bv", 
+	"53": "bw", 
+	"54": "bx", 
+	"55": "by", 
+	"56": "bz", 
+	"57": "ca"
 }
 
 # HACK: This dictionary is inefficient, along with toAA().
@@ -83,7 +177,7 @@ static var suffixes_aa: Dictionary = {
 	"30": "az", 
 	"31": "ba", 
 	"32": "bb", 
-	"33": "bc", 
+
 	"34": "bd", 
 	"35": "be", 
 	"36": "bf", 
@@ -136,12 +230,12 @@ const latin_special: Array[String] = [
 ## Various options to control the string presentation of Big Numbers
 static var options = {
 	"dynamic_decimals": false, 
-	"dynamic_numbers": 4, 
-	"small_decimals": 3, 
+	"dynamic_numbers": 1, 
+	"small_decimals": 1, 
 	"thousand_decimals": 1, 
 	"big_decimals": 1, 
-	"scientific_decimals": 3, 
-	"logarithmic_decimals": 4, 
+	"scientific_decimals": 1, 
+	"logarithmic_decimals": 1, 
 	"thousand_separator": ",", 
 	"decimal_separator": ".", 
 	"suffix_separator": "", 
@@ -247,7 +341,7 @@ static func add(x, y) -> Big:
 ## Subtracts two numbers and returns the Big number result
 static func subtract(x, y) -> Big:
 	var negated_y := Big.new(-y.mantissa, y.exponent)
-	return add(x, negated_y)
+	return add(negated_y, x)
 
 
 ## Multiplies two numbers and returns the Big number result
@@ -512,7 +606,6 @@ func isEqualTo(n) -> bool:
 func isGreaterThan(n) -> bool:
 	return !isLessThanOrEqualTo(n)
 
-
 ## Equivalent of [code]Big >== n[/code]
 func isGreaterThanOrEqualTo(n) -> bool:
 	return !isLessThan(n)
@@ -629,6 +722,8 @@ static func setScientificDecimals(d: int) -> void:
 static func setLogarithmicDecimals(d: int) -> void:
 	options.logarithmic_decimals = d
 
+func isPositive() -> bool: 
+	return mantissa > 0
 
 ## Converts the Big Number into a string
 func toString() -> String:
@@ -752,12 +847,12 @@ func toPrefix(no_decimals_on_small_values = false, use_thousand_symbol=true, for
 		else:
 			if use_thousand_symbol: # when the prefix is supposed to be using with a K for thousand
 				for i in range(3):
-					if split[1].length() < 3:
+					if split[1].length() < 1:
 						split[1] += "0"
-				return split[0] + options.decimal_separator + split[1].substr(0,min(3, options.dynamic_numbers - split[0].length() if options.dynamic_decimals else 3))
+				return split[0] + options.decimal_separator + split[1].substr(0,min(3, options.dynamic_numbers - split[0].length() if options.dynamic_decimals else 1))
 			else:
 				for i in range(3):
-					if split[1].length() < 3:
+					if split[1].length() < 1:
 						split[1] += "0"
 				return split[0] + options.thousand_separator + split[1].substr(0,3)
 	else:

@@ -1,128 +1,162 @@
 extends Node2D
 
-var coins = 0
-var cps = 0
-var clickPower = 10000000
+var coins = Big.new(0.001)
+var cps = Big.new(0)
+var click_power = Big.new(1,0)
+var cursor_price = Big.new(1,2)
 
+var hand_price = Big.new(15)
+var hand_power = Big.new(0.1)
 
-var handPower = 5
-var handPrice = 100
+var pickaxe_price = Big.new(1,2)
+var pickaxe_power = Big.new(1)
 
-var pickaxePower = 50
-var pickaxePrice = 1000
+var miner_price = Big.new(11,2)
+var miner_power = Big.new(8)
 
-var minerPower = 500
-var minerPrice = 1000000
+var drill_price = Big.new(12,3)
+var drill_power = Big.new(47)
 
-#var big = Big.new(12345,12)
+var stone_mine_price = Big.new(13,3)
+var stone_mine_power = Big.new(260)
+
+var coal_mine_price = Big.new(14,5)
+var coal_mine_power = Big.new(14,2)
+
+var iron_mine_price = Big.new(20,6)
+var iron_mine_power = Big.new(78,2)
+
+var gold_mine_price = Big.new(33,7)
+var gold_mine_power = Big.new(44,3)
+
+var diamond_mine_price = Big.new(51,8)
+var diamond_mine_power = Big.new(26,4)
+
+var delivery_service_price = Big.new(75,9)
+var delivery_service_power = Big.new(16,5)
+
+var wizard_price = Big.new(1,12)
+var wizard_power = Big.new(1,7)
+
+var portal_price = Big.new(14,12)
+var portal_power = Big.new(65,6)
+
+var wishing_well_price = Big.new(17,13)
+var wishing_well_power = Big.new(43,7)
+
+var particle_accelerator_price = Big.new(21,14)
+var particle_accelerator_power = Big.new(29,8)
+
+var terminal_price = Big.new(31,16)
+var terminal_power = Big.new(15,10)
 
 func _ready():
-	$Canvas/ClickingRect/RichTextLabel.text =  "[center]%d coins
-%d cps[/center]" % [coins, cps]
+	Big.setSmallDecimals(1)
+	Big.setThousandDecimals(2)
+	Big.setBigDecimals(3)
+	$Canvas/ClickingRect/RichTextLabel.text =  "[center]%s coins
+%s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
 	pass
  
 func _process(delta):
-	# Coin system
-	coins += cps * delta
-	$Canvas/ClickingRect/RichTextLabel.text = "[center]%d coins
-%s cps[/center]" % [coins, cps]
+# Coin system
+	coins.plusEquals(cps.times(delta))
+	$Canvas/ClickingRect/RichTextLabel.text = "[center]%s coins
+%s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
+
+# Cursor upgrade
+	$Canvas/ScrollContainer/Control/cursor.text = "2x click power
+%s coins" % [cursor_price.toMetricSymbol()]
 
 # Hand button
-	if coins >= handPrice * 0.8:
-		$Canvas/ScrollContainer/Control/HandBtn.visible = true
-
-	if handPrice < 1000:
-		$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1f coins
-%d cps" % [handPrice, handPower]
-	elif handPrice >=1000 and handPrice < 1000000:
-		$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1fk coins
-%d cps" % [handPrice / 1000, handPower]
-	elif handPrice >=1000000 and handPrice < 1000000000:
-			$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1fM coins
-	%d cps" % [handPrice / 1000000, handPower]
-	elif handPrice >=1000000000 and handPrice < 1000000000000:
-		$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1fB coins
-%d cps" % [handPrice / 1000000000, handPower]
-	elif handPrice >=1000000000000 and handPrice < 1000000000000000:
-		$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1fT coins
-%d cps" % [handPrice / 1000000000000, handPower]
-	elif handPrice >=1000000000000000 and handPrice < 1000000000000000000:
-		$Canvas/ScrollContainer/Control/HandBtn.text = "Hand | %.1fQd coins
-%d cps" % [handPrice / 1000000000000000, handPower]
+	if coins.isGreaterThanOrEqualTo(hand_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/hand.visible = true
+	$Canvas/ScrollContainer/Control/hand.text = "Hand | %s coins
+%s cps" % [hand_price.toMetricSymbol(), hand_power.toMetricSymbol()]
 
 # Pickaxe button
-	if coins >= pickaxePrice * 0.8:
-		$Canvas/ScrollContainer/Control/PickaxeBtn.visible = true
-
-	if pickaxePrice < 1000:
-		$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1f coins
-%d cps" % [pickaxePrice, pickaxePower]
-	elif pickaxePrice >=1000 and pickaxePrice < 1000000:
-		$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1fk coins
-%d cps" % [pickaxePrice / 1000, pickaxePower]
-	elif pickaxePrice >=1000000 and pickaxePrice < 1000000000:
-			$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1fM coins
-%d cps" % [pickaxePrice / 1000000, pickaxePower]
-	elif pickaxePrice >=1000000000 and pickaxePrice < 1000000000000:
-			$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1fB coins
-%d cps" % [pickaxePrice / 1000000000, pickaxePower]
-	elif pickaxePrice >=1000000000000 and pickaxePrice < 1000000000000000:
-			$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1fT coins
-%d cps" % [pickaxePrice / 1000000000000, pickaxePower]
-	elif pickaxePrice >=1000000000000000 and pickaxePrice < 1000000000000000000:
-			$Canvas/ScrollContainer/Control/PickaxeBtn.text = "Pickaxe | %.1fQd coins
-%d cps" % [pickaxePrice / 1000000000000000, pickaxePower]
-	pass
+	if coins.isGreaterThanOrEqualTo(pickaxe_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/pickaxe.visible = true
+	$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe | %s coins
+%s cps" % [pickaxe_price.toMetricSymbol(), pickaxe_power.toMetricSymbol()]
 	
 # Miner button
-	if coins >= pickaxePrice * 0.8:
-		$Canvas/ScrollContainer/Control/MinerBtn.visible = true
-		
-	if minerPrice < 1000:
-			$Canvas/ScrollContainer/Control/MinerBtn.text = "Miner | %.1f coins
-	%d cps" % [minerPrice, minerPower]
+	if coins.isGreaterThanOrEqualTo(miner_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/miner.visible = true
+	$Canvas/ScrollContainer/Control/miner.text = "Miner | %s coins
+%s cps" % [miner_price.toMetricSymbol(), miner_power.toMetricSymbol()]
+# Drill button
+	if coins.isGreaterThanOrEqualTo(drill_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/drill.visible = true
+	$Canvas/ScrollContainer/Control/drill.text = "Drill | %s coins
+%s cps" % [drill_price.toMetricSymbol(), drill_power.toMetricSymbol()]
 
-func _on_button_3_pressed():
-	coins += clickPower
-	$Canvas/ClickingRect/RichTextLabel.text = "[center]%d coins
-%d cps[/center]" % [coins, cps]
-	pass
 
 func _on_color_rect_mouse_exited():
 	$Canvas/Notification.text = ""
 	$Canvas/Notification/ColorRect.visible = false;
 	pass
 
-func _on_hand_btn_pressed():
-	if coins >= handPrice:
-		coins-= handPrice
-		cps += handPower 
-		handPrice *= 1.1
+func _on_button_3_pressed():
+	coins.plusEquals(click_power)
+	pass
+	
+func _on_cursor_pressed():
+	if coins.minus(cursor_price).isPositive() and coins.isGreaterThanOrEqualTo(cursor_price):
+		coins.minusEquals(cursor_price)
+		click_power.timesEquals(Big.new(2))
+		cursor_price.timesEquals(10)
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
-%d needed.[/center]" % [handPrice]
+%s needed.[/center]" % [cursor_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+	pass
+
+func _on_hand_btn_pressed():
+	if coins.minus(hand_price).isPositive() and coins.isGreaterThanOrEqualTo(hand_price):
+		coins = Big.subtract(coins,hand_price)
+		cps.plusEquals(hand_power)
+		hand_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [hand_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
 
 func _on_pickaxe_btn_pressed():
-	if coins >= pickaxePrice:
-		coins-= pickaxePrice
-		cps += pickaxePower 
-		pickaxePrice *= 1.1
+	if coins.minus(pickaxe_price).isPositive() and coins.isGreaterThanOrEqualTo(pickaxe_price):
+		coins = Big.subtract(coins,pickaxe_price)
+		cps.plusEquals(pickaxe_power)
+		pickaxe_price.timesEquals(1.2)
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
-%d needed.[/center]" % [pickaxePrice]
+%s needed.[/center]" % [pickaxe_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
 
 
 func _on_miner_btn_pressed():
-	if coins >= minerPrice:
-		coins-= minerPrice
-		cps += minerPower 
-		minerPrice *= 1.1
+	if coins.minus(miner_price).isPositive() and coins.isGreaterThanOrEqualTo(miner_price):
+		coins = Big.subtract(coins,miner_price)
+		cps.plusEquals(miner_power)
+		miner_price.timesEquals(1.2)
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
-%d needed.[/center]" % [minerPrice]
+%s needed.[/center]" % [miner_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
+
+
+func _on_drill_btn_pressed():
+	if coins.minus(drill_price).isPositive() and coins.isGreaterThanOrEqualTo(drill_price):
+		coins = Big.subtract(coins,drill_price)
+		cps.plusEquals(drill_power)
+		drill_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [drill_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+
+
