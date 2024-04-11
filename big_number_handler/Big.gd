@@ -847,9 +847,9 @@ func toPrefix(no_decimals_on_small_values = false, use_thousand_symbol=true, for
 		else:
 			if use_thousand_symbol: # when the prefix is supposed to be using with a K for thousand
 				for i in range(3):
-					if split[1].length() < 1:
+					if split[1].length() < 3:
 						split[1] += "0"
-				return split[0] + options.decimal_separator + split[1].substr(0,min(3, options.dynamic_numbers - split[0].length() if options.dynamic_decimals else 1))
+				return split[0] + options.decimal_separator + split[1].substr(0,min(3, options.dynamic_numbers - split[0].length() if options.dynamic_decimals else 2)) # Change here to change thousand decimal place
 			else:
 				for i in range(3):
 					if split[1].length() < 1:

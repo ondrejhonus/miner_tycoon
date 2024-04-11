@@ -2,55 +2,70 @@ extends Node2D
 
 var coins = Big.new(0.001)
 var cps = Big.new(0)
-var click_power = Big.new(1,0)
+var click_power = Big.new(1,5)
 var cursor_price = Big.new(1,2)
 
 var playtime_seconds = 0
 
 var hand_price = Big.new(15)
 var hand_power = Big.new(0.1)
+var hand_count = 0
 
 var pickaxe_price = Big.new(1,2)
 var pickaxe_power = Big.new(1)
+var pickaxe_count = 0
 
 var miner_price = Big.new(11,2)
 var miner_power = Big.new(8)
+var miner_count = 0
 
 var drill_price = Big.new(12,3)
 var drill_power = Big.new(47)
+var drill_count = 0
 
-var stone_mine_price = Big.new(13,3)
+var stone_mine_price = Big.new(13,4)
 var stone_mine_power = Big.new(260)
+var stone_mine_count = 0
 
 var coal_mine_price = Big.new(14,5)
 var coal_mine_power = Big.new(14,2)
+var coal_mine_count = 0
 
 var iron_mine_price = Big.new(20,6)
 var iron_mine_power = Big.new(78,2)
+var iron_mine_count = 0
 
 var gold_mine_price = Big.new(33,7)
 var gold_mine_power = Big.new(44,3)
+var gold_mine_count = 0
 
 var diamond_mine_price = Big.new(51,8)
 var diamond_mine_power = Big.new(26,4)
+var diamond_mine_count = 0
 
 var delivery_service_price = Big.new(75,9)
 var delivery_service_power = Big.new(16,5)
+var delivery_service_count = 0
 
 var wizard_price = Big.new(1,12)
 var wizard_power = Big.new(1,7)
+var wizard_count = 0
 
 var portal_price = Big.new(14,12)
 var portal_power = Big.new(65,6)
+var portal_count = 0
 
 var wishing_well_price = Big.new(17,13)
 var wishing_well_power = Big.new(43,7)
+var wishing_well_count = 0
 
 var particle_accelerator_price = Big.new(21,14)
 var particle_accelerator_power = Big.new(29,8)
+var particle_accelerator_count = 0
 
 var terminal_price = Big.new(31,16)
 var terminal_power = Big.new(15,10)
+var terminal_count = 0
 
 func _ready():
 	Big.setSmallDecimals(1)
@@ -60,7 +75,7 @@ func _ready():
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
 	pass
  
-func timer(total_seconds: float) -> String:
+func playtime(total_seconds: float) -> String:
 	var seconds:float = fmod(total_seconds , 60.0)
 	var minutes:int   =  int(total_seconds / 60.0) % 60
 	var hours:  int   =  int(total_seconds / 3600.0)
@@ -78,10 +93,14 @@ func _process(delta):
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
 # Playtime
 	playtime_seconds += delta
-	$Canvas/time.text = timer(playtime_seconds)
+	$Canvas/time.text = playtime(playtime_seconds)
 # Cursor upgrade
 	$Canvas/ScrollContainer/Control/cursor.text = "2x click power
 %s coins" % [cursor_price.toMetricSymbol()]
+	if coins.isGreaterThanOrEqualTo(cursor_price):
+		$Canvas/ScrollContainer/Control/cursor.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/cursor.disabled = true
 
 # Hand button
 	if coins.isGreaterThanOrEqualTo(hand_price.dividedBy(100).times(80)):
@@ -90,18 +109,26 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/hand.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/hand.disabled = true
-	$Canvas/ScrollContainer/Control/hand.text = "Hand | %s cps
-%s coins" % [hand_power.toMetricSymbol(), hand_price.toMetricSymbol()]
+	if hand_count > 0: 
+		$Canvas/ScrollContainer/Control/hand.text = "Hand | %sx
+%s coins" % [hand_count, hand_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/hand.text = "Hand
+%s coins" % [hand_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/hand.tooltip_text = "Each hand provides %s cps" % [hand_power.toMetricSymbol()]
 
 # Pickaxe button
 	if coins.isGreaterThanOrEqualTo(pickaxe_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/pickaxe.visible = true
 	if coins.isGreaterThanOrEqualTo(pickaxe_price):
 		$Canvas/ScrollContainer/Control/pickaxe.disabled = false
+	if pickaxe_count > 0: 
+		$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe | %sx
+%s coins" % [pickaxe_count, pickaxe_price.toMetricSymbol()]
 	else:
-		$Canvas/ScrollContainer/Control/pickaxe.disabled = true
-	$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe | %s cps
-%s coins" % [pickaxe_power.toMetricSymbol(), pickaxe_price.toMetricSymbol()]
+		$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe
+%s coins" % [pickaxe_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/pickaxe.tooltip_text = "Each pickaxe provides %s cps" % [pickaxe_power.toMetricSymbol()]
 	
 # Miner button
 	if coins.isGreaterThanOrEqualTo(miner_price.dividedBy(100).times(80)):
@@ -110,8 +137,13 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/miner.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/miner.disabled = true
-	$Canvas/ScrollContainer/Control/miner.text = "Miner | %s cps
-%s coins" % [miner_power.toMetricSymbol(), miner_price.toMetricSymbol()]
+	if miner_count > 0: 
+		$Canvas/ScrollContainer/Control/miner.text = "Miner | %sx
+%s coins" % [miner_count, miner_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/miner.text = "Miner
+%s coins" % [miner_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/miner.tooltip_text = "Each miner provides %s cps" % [miner_power.toMetricSymbol()]
 
 # Drill button
 	if coins.isGreaterThanOrEqualTo(drill_price.dividedBy(100).times(80)):
@@ -120,8 +152,14 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/drill.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/drill.disabled = true
-	$Canvas/ScrollContainer/Control/drill.text = "Drill | %s cps
-%s coins" % [drill_power.toMetricSymbol(), drill_price.toMetricSymbol()]
+	if drill_count > 0: 
+		$Canvas/ScrollContainer/Control/drill.text = "Drill | %sx
+%s coins" % [drill_count, drill_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/drill.text = "Drill
+%s coins" % [drill_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/drill.tooltip_text = "Each drill provides %s cps" % [drill_power.toMetricSymbol()]
+	
 # stone_mine button
 	if coins.isGreaterThanOrEqualTo(stone_mine_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/stone_mine.visible = true
@@ -129,8 +167,14 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/stone_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/stone_mine.disabled = true
-	$Canvas/ScrollContainer/Control/stone_mine.text = "Stone mine | %s cps
-%s coins" % [stone_mine_power.toMetricSymbol(), stone_mine_price.toMetricSymbol()]
+	if stone_mine_count > 0: 
+		$Canvas/ScrollContainer/Control/stone_mine.text = "Stone mine | %sx
+%s coins" % [stone_mine_count, stone_mine_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/stone_mine.text = "Stone mine
+%s coins" % [stone_mine_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/stone_mine.tooltip_text = "Each stone_mine provides %s cps" % [stone_mine_power.toMetricSymbol()]
+
 # coal_mine button
 	if coins.isGreaterThanOrEqualTo(coal_mine_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/coal_mine.visible = true
@@ -138,8 +182,13 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/coal_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/coal_mine.disabled = true
-	$Canvas/ScrollContainer/Control/coal_mine.text = "Coal mine | %s cps
-%s coins" % [coal_mine_power.toMetricSymbol(), coal_mine_price.toMetricSymbol()]
+	if coal_mine_count > 0: 
+		$Canvas/ScrollContainer/Control/coal_mine.text = "Coal mine | %sx
+%s coins" % [coal_mine_count, coal_mine_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/coal_mine.text = "Coal mine
+%s coins" % [coal_mine_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/coal_mine.tooltip_text = "Each coal_mine provides %s cps" % [coal_mine_power.toMetricSymbol()]
 
 # iron_mine button
 	if coins.isGreaterThanOrEqualTo(iron_mine_price.dividedBy(100).times(80)):
@@ -148,8 +197,14 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/iron_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/iron_mine.disabled = true
-	$Canvas/ScrollContainer/Control/iron_mine.text = "Iron mine | %s cps
-%s coins" % [iron_mine_power.toMetricSymbol(), iron_mine_price.toMetricSymbol()]
+	if iron_mine_count > 0: 
+		$Canvas/ScrollContainer/Control/iron_mine.text = "Iron mine | %sx
+%s coins" % [iron_mine_count, iron_mine_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/iron_mine.text = "Iron mine
+%s coins" % [iron_mine_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/iron_mine.tooltip_text = "Each iron_mine provides %s cps" % [iron_mine_power.toMetricSymbol()]
+
 # gold_mine button
 	if coins.isGreaterThanOrEqualTo(gold_mine_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/gold_mine.visible = true
@@ -157,8 +212,14 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/gold_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/gold_mine.disabled = true
-	$Canvas/ScrollContainer/Control/gold_mine.text = "Gold mine | %s cps
-%s coins" % [gold_mine_power.toMetricSymbol(), gold_mine_price.toMetricSymbol()]
+	if gold_mine_count > 0: 
+		$Canvas/ScrollContainer/Control/gold_mine.text = "Gold mine | %sx
+%s coins" % [gold_mine_count, gold_mine_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/gold_mine.text = "Gold mine
+%s coins" % [gold_mine_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/gold_mine.tooltip_text = "Each gold_mine provides %s cps" % [gold_mine_power.toMetricSymbol()]
+
 # diamond_mine button
 	if coins.isGreaterThanOrEqualTo(diamond_mine_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/diamond_mine.visible = true
@@ -166,8 +227,13 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/diamond_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/diamond_mine.disabled = true
-	$Canvas/ScrollContainer/Control/diamond_mine.text = "Diamond mine | %s cps
-%s coins" % [diamond_mine_power.toMetricSymbol(), diamond_mine_price.toMetricSymbol()]
+	if diamond_mine_count > 0: 
+		$Canvas/ScrollContainer/Control/diamond_mine.text = "Diamond mine | %sx
+%s coins" % [diamond_mine_count, diamond_mine_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/diamond_mine.text = "Diamond mine
+%s coins" % [diamond_mine_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/diamond_mine.tooltip_text = "Each diamond_mine provides %s cps" % [diamond_mine_power.toMetricSymbol()]
 	pass
 
 
@@ -184,7 +250,7 @@ func _on_cursor_pressed():
 	if coins.minus(cursor_price).isPositive() and coins.isGreaterThanOrEqualTo(cursor_price):
 		coins.minusEquals(cursor_price)
 		click_power.timesEquals(Big.new(2))
-		cursor_price.timesEquals(10)
+		cursor_price.timesEquals(5)
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [cursor_price.minus(coins).toMetricSymbol()]
@@ -196,6 +262,7 @@ func _on_hand_btn_pressed():
 		coins = Big.subtract(coins,hand_price)
 		cps.plusEquals(hand_power)
 		hand_price.timesEquals(1.2)
+		hand_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [hand_price.minus(coins).toMetricSymbol()]
@@ -207,6 +274,7 @@ func _on_pickaxe_btn_pressed():
 		coins = Big.subtract(coins,pickaxe_price)
 		cps.plusEquals(pickaxe_power)
 		pickaxe_price.timesEquals(1.2)
+		pickaxe_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [pickaxe_price.minus(coins).toMetricSymbol()]
@@ -218,6 +286,7 @@ func _on_miner_btn_pressed():
 		coins = Big.subtract(coins,miner_price)
 		cps.plusEquals(miner_power)
 		miner_price.timesEquals(1.2)
+		miner_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [miner_price.minus(coins).toMetricSymbol()]
@@ -229,6 +298,7 @@ func _on_drill_btn_pressed():
 		coins = Big.subtract(coins,drill_price)
 		cps.plusEquals(drill_power)
 		drill_price.timesEquals(1.2)
+		drill_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [drill_price.minus(coins).toMetricSymbol()]
@@ -240,6 +310,7 @@ func _on_stone_mine_pressed():
 		coins = Big.subtract(coins,stone_mine_price)
 		cps.plusEquals(stone_mine_power)
 		stone_mine_price.timesEquals(1.2)
+		stone_mine_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [stone_mine_price.minus(coins).toMetricSymbol()]
@@ -251,6 +322,7 @@ func _on_coal_mine_pressed():
 		coins = Big.subtract(coins,coal_mine_price)
 		cps.plusEquals(coal_mine_power)
 		coal_mine_price.timesEquals(1.2)
+		coal_mine_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [coal_mine_price.minus(coins).toMetricSymbol()]
@@ -263,6 +335,7 @@ func _on_iron_mine_pressed():
 		coins = Big.subtract(coins,iron_mine_price)
 		cps.plusEquals(iron_mine_power)
 		iron_mine_price.timesEquals(1.2)
+		iron_mine_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [iron_mine_price.minus(coins).toMetricSymbol()]
@@ -274,6 +347,7 @@ func _on_gold_mine_pressed():
 		coins = Big.subtract(coins,gold_mine_price)
 		cps.plusEquals(gold_mine_power)
 		gold_mine_price.timesEquals(1.2)
+		gold_mine_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [gold_mine_price.minus(coins).toMetricSymbol()]
@@ -285,6 +359,7 @@ func _on_diamond_mine_pressed():
 		coins = Big.subtract(coins,diamond_mine_price)
 		cps.plusEquals(diamond_mine_power)
 		diamond_mine_price.timesEquals(1.2)
+		diamond_mine_count += 1
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [diamond_mine_price.minus(coins).toMetricSymbol()]

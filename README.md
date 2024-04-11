@@ -20,17 +20,20 @@
 ## 💭 About ##
 
 I am bored, so I'm doing random projects in random languages,
-so this time I tried my best to do some kind of cliker style game.
+so this time I tried my best to do some kind of clicker game.
 
 ## ✨ Features ##
 
 🟧 Playable game;\
-🟧 Shop;\
+✅ Shop;\
 ✅ Coins;\
 ✅ Click something to get coins;\
 ✅ Things get more expensive the more you have;\
 ✅ Handle big numbers;\
 ✅ Cursor upgrades;\
+✅ Timer;\
+✅ See the number of stuff you own;\
+❌ See the stuff you bought in the middle;\
 ❌ Item upgrades;\
 ❌ Saves;\
 ❌ Autosaves;\
