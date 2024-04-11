@@ -123,7 +123,7 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/coal_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/coal_mine.disabled = true
-	$Canvas/ScrollContainer/Control/coal_mine.text = "Stone mine | %s cps
+	$Canvas/ScrollContainer/Control/coal_mine.text = "Coal mine | %s cps
 %s coins" % [coal_mine_power.toMetricSymbol(), coal_mine_price.toMetricSymbol()]
 
 # iron_mine button
@@ -133,7 +133,7 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/iron_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/iron_mine.disabled = true
-	$Canvas/ScrollContainer/Control/iron_mine.text = "Stone mine | %s cps
+	$Canvas/ScrollContainer/Control/iron_mine.text = "Iron mine | %s cps
 %s coins" % [iron_mine_power.toMetricSymbol(), iron_mine_price.toMetricSymbol()]
 # gold_mine button
 	if coins.isGreaterThanOrEqualTo(gold_mine_price.dividedBy(100).times(80)):
@@ -142,7 +142,7 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/gold_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/gold_mine.disabled = true
-	$Canvas/ScrollContainer/Control/gold_mine.text = "Stone mine | %s cps
+	$Canvas/ScrollContainer/Control/gold_mine.text = "Gold mine | %s cps
 %s coins" % [gold_mine_power.toMetricSymbol(), gold_mine_price.toMetricSymbol()]
 # diamond_mine button
 	if coins.isGreaterThanOrEqualTo(diamond_mine_price.dividedBy(100).times(80)):
@@ -151,7 +151,7 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/diamond_mine.disabled = false
 	else:
 		$Canvas/ScrollContainer/Control/diamond_mine.disabled = true
-	$Canvas/ScrollContainer/Control/diamond_mine.text = "Stone mine | %s cps
+	$Canvas/ScrollContainer/Control/diamond_mine.text = "Diamond mine | %s cps
 %s coins" % [diamond_mine_power.toMetricSymbol(), diamond_mine_price.toMetricSymbol()]
 	pass
 
