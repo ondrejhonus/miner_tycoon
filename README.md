@@ -24,7 +24,7 @@ so this time I tried my best to do some kind of clicker game.
 
 ## ✨ Features ##
 
-🟧 Playable game;\
+✅🟧 Playable game;\
 ✅ Shop;\
 ✅ Coins;\
 ✅ Click something to get coins;\
@@ -37,7 +37,7 @@ so this time I tried my best to do some kind of clicker game.
 ❌ Item upgrades;\
 ❌ Saves;\
 ❌ Autosaves;\
-❌ Good graphics (maybe pixel art);\
+✅🟧 Good graphics (maybe pixel art);\
 ❌ BG music;\
 ❌ AFK income;\
 ❌ Leaderboard;\

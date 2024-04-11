@@ -1,13 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyesp2fngpjbj"]
+[gd_scene load_steps=25 format=3 uid="uid://cyesp2fngpjbj"]
 
-[ext_resource type="Texture2D" uid="uid://6ekq3gxdbppi" path="res://sprites/ground.png" id="1_0aun0"]
 [ext_resource type="Script" path="res://Scenes/first.gd" id="1_qyulj"]
+[ext_resource type="Texture2D" uid="uid://i3ph74i10bxa" path="res://sprites/pixel_ground.png" id="2_g1i0o"]
 [ext_resource type="Texture2D" uid="uid://c662x1ur5uixi" path="res://sprites/gold-ore.png" id="2_vvn7b"]
 [ext_resource type="Texture2D" uid="uid://r3s1w5nfspbr" path="res://sprites/hand.png" id="3_h17m5"]
 [ext_resource type="Texture2D" uid="uid://b283k4s6x2t2a" path="res://sprites/cursor.png" id="3_w8fyv"]
 [ext_resource type="Texture2D" uid="uid://emc05tekq3o4" path="res://sprites/miner.png" id="4_3nisy"]
 [ext_resource type="Texture2D" uid="uid://bqrbfmebubx62" path="res://sprites/drill.png" id="5_42csk"]
 [ext_resource type="Texture2D" uid="uid://cxxn2x3km0ylb" path="res://sprites/pickaxe.png" id="5_qgg7x"]
+[ext_resource type="FontFile" uid="uid://dk447tcykk8ys" path="res://fonts/PressStart2P-Regular.ttf" id="5_wfsna"]
+[ext_resource type="Texture2D" uid="uid://bw5pkdoai5api" path="res://sprites/button.png" id="6_eni0o"]
+[ext_resource type="Texture2D" uid="uid://bnrdjq6f4an0u" path="res://sprites/button-hover.png" id="7_cyhpm"]
+[ext_resource type="Texture2D" uid="uid://by6dexbvgehgf" path="res://sprites/button-disabled.png" id="7_h6s7i"]
 [ext_resource type="Texture2D" uid="uid://dgyp6wtve1cy2" path="res://sprites/stone_mine.png" id="9_vp630"]
 [ext_resource type="Texture2D" uid="uid://qrgdb5rnl21g" path="res://sprites/coal_mine.png" id="10_t5htj"]
 [ext_resource type="Texture2D" uid="uid://cxbn37kp62eiu" path="res://sprites/iron_mine.png" id="11_v6fvf"]
@@ -17,12 +21,25 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjw4j"]
 texture = ExtResource("2_vvn7b")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b64e4"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cnxvn"]
 texture = ExtResource("2_vvn7b")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vp70m"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6npjh"]
 texture = ExtResource("2_vvn7b")
-region_rect = Rect2(-47.7719, -77.9045, 613.272, 648.391)
+texture_margin_top = 20.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yndkl"]
+texture = ExtResource("6_eni0o")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oy6cy"]
+texture = ExtResource("7_cyhpm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7x6tl"]
+texture = ExtResource("7_h6s7i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ch6sv"]
+texture = ExtResource("6_eni0o")
 
 [node name="Node" type="Node2D"]
 position = Vector2(0, -4)
@@ -33,12 +50,12 @@ script = ExtResource("1_qyulj")
 [node name="Ground" type="Sprite2D" parent="Canvas"]
 position = Vector2(576, 324)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_0aun0")
+texture = ExtResource("2_g1i0o")
 
 [node name="DisplayToolsRect" type="ColorRect" parent="Canvas"]
 offset_left = 456.0
 offset_top = 128.0
-offset_right = 848.0
+offset_right = 832.0
 offset_bottom = 640.0
 color = Color(0, 0, 0, 0.211765)
 
@@ -56,7 +73,8 @@ offset_top = 64.0
 offset_right = 1144.0
 offset_bottom = 368.0
 scale = Vector2(0.35, 0.35)
-theme_override_font_sizes/normal_font_size = 111
+theme_override_fonts/normal_font = ExtResource("5_wfsna")
+theme_override_font_sizes/normal_font_size = 71
 bbcode_enabled = true
 fit_content = true
 autowrap_mode = 0
@@ -71,13 +89,14 @@ color = Color(0, 0, 0, 0.211765)
 
 [node name="Button3" type="Button" parent="Canvas/ClickingRect"]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 192.0
-offset_right = 312.0
-offset_bottom = 384.0
+offset_left = 96.0
+offset_top = 168.0
+offset_right = 336.0
+offset_bottom = 408.0
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_rjw4j")
-theme_override_styles/hover = SubResource("StyleBoxTexture_b64e4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_vp70m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cnxvn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6npjh")
 
 [node name="Cursor" type="Sprite2D" parent="Canvas/ClickingRect/Button3"]
 visible = false
@@ -87,25 +106,27 @@ scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_w8fyv")
 
 [node name="ShopRect" type="ColorRect" parent="Canvas"]
-offset_left = 856.0
+offset_left = 840.0
 offset_top = 128.0
 offset_right = 1152.0
 offset_bottom = 640.0
 color = Color(0, 0, 0, 0.211765)
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Canvas"]
-offset_left = 952.0
-offset_top = 120.0
-offset_right = 1395.0
-offset_bottom = 324.0
+offset_left = 848.0
+offset_top = 136.0
+offset_right = 2107.0
+offset_bottom = 307.0
 scale = Vector2(0.235, 0.235)
-theme_override_font_sizes/normal_font_size = 164
-text = "SHOP"
+theme_override_fonts/normal_font = ExtResource("5_wfsna")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]SHOP[/center]"
 scroll_active = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Canvas"]
 custom_minimum_size = Vector2(63.365, 82.735)
-offset_left = 864.0
+offset_left = 848.0
 offset_top = 168.0
 offset_right = 1153.0
 offset_bottom = 600.0
@@ -118,10 +139,16 @@ layout_mode = 2
 
 [node name="cursor" type="Button" parent="Canvas/ScrollContainer/Control"]
 layout_mode = 2
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 64.0
+focus_mode = 0
 theme_override_colors/font_color = Color(0.254902, 0.690196, 0.756863, 1)
 theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_yndkl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("3_w8fyv")
 alignment = 0
 expand_icon = true
@@ -130,9 +157,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 72.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 136.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("3_h17m5")
 alignment = 0
 expand_icon = true
@@ -141,9 +173,15 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 144.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 208.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
+disabled = true
 icon = ExtResource("5_qgg7x")
 alignment = 0
 expand_icon = true
@@ -152,9 +190,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 216.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 280.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("4_3nisy")
 alignment = 0
 expand_icon = true
@@ -163,9 +206,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 288.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 352.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("5_42csk")
 alignment = 0
 expand_icon = true
@@ -174,9 +222,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 360.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 424.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("9_vp630")
 alignment = 0
 expand_icon = true
@@ -185,9 +238,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 432.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 496.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("10_t5htj")
 alignment = 0
 expand_icon = true
@@ -196,9 +254,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 504.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 568.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("11_v6fvf")
 alignment = 0
 expand_icon = true
@@ -207,9 +270,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 576.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 640.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("12_y7x8c")
 alignment = 0
 expand_icon = true
@@ -218,9 +286,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 648.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 712.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("13_07yjg")
 alignment = 0
 expand_icon = true
@@ -229,9 +302,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 720.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 784.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -240,9 +318,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 792.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 856.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -251,9 +334,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 864.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 928.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -262,9 +350,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 936.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 1000.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -273,9 +366,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 1008.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 1072.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -284,9 +382,14 @@ expand_icon = true
 visible = false
 layout_mode = 2
 offset_top = 1080.0
-offset_right = 280.0
+offset_right = 296.0
 offset_bottom = 1144.0
-theme_override_font_sizes/font_size = 14
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_wfsna")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -297,6 +400,7 @@ offset_left = 64.0
 offset_top = 536.0
 offset_right = 384.0
 offset_bottom = 592.0
+theme_override_fonts/normal_font = ExtResource("5_wfsna")
 bbcode_enabled = true
 fit_content = true
 
@@ -310,14 +414,13 @@ color = Color(0, 0, 0, 0.407843)
 
 [node name="time" type="RichTextLabel" parent="Canvas"]
 offset_left = 8.0
-offset_top = 616.0
-offset_right = 440.0
-offset_bottom = 640.0
+offset_top = 624.0
+offset_right = 448.0
+offset_bottom = 648.0
+theme_override_fonts/normal_font = ExtResource("5_wfsna")
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
-text = "Playtime XXh XXm XXs"
-
-[node name="Timer" type="Timer" parent="Canvas"]
-autostart = true
+text = "Playtime: XXh XXm XXs"
 
 [connection signal="pressed" from="Canvas/ClickingRect/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/cursor" to="." method="_on_cursor_pressed"]
