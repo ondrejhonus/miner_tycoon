@@ -44,6 +44,9 @@ so this time I tried my best to do some kind of clicker game.
 ❌ Ascensions;\
 ❌ Import/Export save;\
 
+##  📷 Screenshots ##
+<img>screenshots/11.4.2024.png</img>
+
 ## 🚀 Technologies ##
 
 The following tools were used in this project:
