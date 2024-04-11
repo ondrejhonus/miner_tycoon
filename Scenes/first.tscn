@@ -352,10 +352,10 @@ color = Color(0, 0, 0, 0.407843)
 [node name="time" type="RichTextLabel" parent="Canvas"]
 offset_left = 8.0
 offset_top = 616.0
-offset_right = 504.0
+offset_right = 440.0
 offset_bottom = 640.0
 bbcode_enabled = true
-text = "XX:XX"
+text = "Playtime XXh XXm XXs"
 
 [node name="Timer" type="Timer" parent="Canvas"]
 autostart = true

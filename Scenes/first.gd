@@ -64,11 +64,11 @@ func timer(total_seconds: float) -> String:
 	var seconds:float = fmod(total_seconds , 60.0)
 	var minutes:int   =  int(total_seconds / 60.0) % 60
 	var hours:  int   =  int(total_seconds / 3600.0)
-	var timer:String = "%0ds" % [seconds]
+	var timer:String = "Playtime: %0ds" % [seconds]
 	if playtime_seconds > 60:
-		timer = "%0dm %0ds" % [minutes, seconds]
+		timer = "Playtime: %0dm %0ds" % [minutes, seconds]
 	elif playtime_seconds > 3600:
-		timer = "%0dh %0dm %0ds" % [hours, minutes, seconds]
+		timer = "Playtime: %0dh %0dm %0ds" % [hours, minutes, seconds]
 	return timer
 
 func _process(delta):
