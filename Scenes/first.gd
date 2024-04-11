@@ -5,6 +5,8 @@ var cps = Big.new(0)
 var click_power = Big.new(1,0)
 var cursor_price = Big.new(1,2)
 
+var playtime_seconds = 0
+
 var hand_price = Big.new(15)
 var hand_power = Big.new(0.1)
 
@@ -58,12 +60,25 @@ func _ready():
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
 	pass
  
+func timer(total_seconds: float) -> String:
+	var seconds:float = fmod(total_seconds , 60.0)
+	var minutes:int   =  int(total_seconds / 60.0) % 60
+	var hours:  int   =  int(total_seconds / 3600.0)
+	var timer:String = "%0ds" % [seconds]
+	if playtime_seconds > 60:
+		timer = "%0dm %0ds" % [minutes, seconds]
+	elif playtime_seconds > 3600:
+		timer = "%0dh %0dm %0ds" % [hours, minutes, seconds]
+	return timer
+
 func _process(delta):
 # Coin system
 	coins.plusEquals(cps.times(delta))
 	$Canvas/ClickingRect/RichTextLabel.text = "[center]%s coins
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
-
+# Playtime
+	playtime_seconds += delta
+	$Canvas/time.text = timer(playtime_seconds)
 # Cursor upgrade
 	$Canvas/ScrollContainer/Control/cursor.text = "2x click power
 %s coins" % [cursor_price.toMetricSymbol()]

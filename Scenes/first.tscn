@@ -349,6 +349,17 @@ offset_right = 320.0
 offset_bottom = 56.0
 color = Color(0, 0, 0, 0.407843)
 
+[node name="time" type="RichTextLabel" parent="Canvas"]
+offset_left = 8.0
+offset_top = 616.0
+offset_right = 504.0
+offset_bottom = 640.0
+bbcode_enabled = true
+text = "XX:XX"
+
+[node name="Timer" type="Timer" parent="Canvas"]
+autostart = true
+
 [connection signal="pressed" from="Canvas/ClickingRect/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/cursor" to="." method="_on_cursor_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/hand" to="." method="_on_hand_btn_pressed"]
