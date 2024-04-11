@@ -954,7 +954,7 @@ func toMetricSymbol(no_decimals_on_small_values = false) -> String:
 
 
 ## Converts the Big Number into a string (in Metric Name format)
-func toMetricName(no_decimals_on_small_values = false) -> String:
+func toMetricName(no_decimals_on_small_values = true) -> String:
 	@warning_ignore("integer_division")
 	var target := int(exponent / 3)
 

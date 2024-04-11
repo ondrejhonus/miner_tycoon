@@ -71,25 +71,89 @@ func _process(delta):
 # Hand button
 	if coins.isGreaterThanOrEqualTo(hand_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/hand.visible = true
-	$Canvas/ScrollContainer/Control/hand.text = "Hand | %s coins
-%s cps" % [hand_price.toMetricSymbol(), hand_power.toMetricSymbol()]
+	if coins.isGreaterThanOrEqualTo(hand_price):
+		$Canvas/ScrollContainer/Control/hand.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/hand.disabled = true
+	$Canvas/ScrollContainer/Control/hand.text = "Hand | %s cps
+%s coins" % [hand_power.toMetricSymbol(), hand_price.toMetricSymbol()]
 
 # Pickaxe button
 	if coins.isGreaterThanOrEqualTo(pickaxe_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/pickaxe.visible = true
-	$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe | %s coins
-%s cps" % [pickaxe_price.toMetricSymbol(), pickaxe_power.toMetricSymbol()]
+	if coins.isGreaterThanOrEqualTo(pickaxe_price):
+		$Canvas/ScrollContainer/Control/pickaxe.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/pickaxe.disabled = true
+	$Canvas/ScrollContainer/Control/pickaxe.text = "Pickaxe | %s cps
+%s coins" % [pickaxe_power.toMetricSymbol(), pickaxe_price.toMetricSymbol()]
 	
 # Miner button
 	if coins.isGreaterThanOrEqualTo(miner_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/miner.visible = true
-	$Canvas/ScrollContainer/Control/miner.text = "Miner | %s coins
-%s cps" % [miner_price.toMetricSymbol(), miner_power.toMetricSymbol()]
+	if coins.isGreaterThanOrEqualTo(miner_price):
+		$Canvas/ScrollContainer/Control/miner.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/miner.disabled = true
+	$Canvas/ScrollContainer/Control/miner.text = "Miner | %s cps
+%s coins" % [miner_power.toMetricSymbol(), miner_price.toMetricSymbol()]
+
 # Drill button
 	if coins.isGreaterThanOrEqualTo(drill_price.dividedBy(100).times(80)):
 		$Canvas/ScrollContainer/Control/drill.visible = true
-	$Canvas/ScrollContainer/Control/drill.text = "Drill | %s coins
-%s cps" % [drill_price.toMetricSymbol(), drill_power.toMetricSymbol()]
+	if coins.isGreaterThanOrEqualTo(drill_price):
+		$Canvas/ScrollContainer/Control/drill.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/drill.disabled = true
+	$Canvas/ScrollContainer/Control/drill.text = "Drill | %s cps
+%s coins" % [drill_power.toMetricSymbol(), drill_price.toMetricSymbol()]
+# stone_mine button
+	if coins.isGreaterThanOrEqualTo(stone_mine_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/stone_mine.visible = true
+	if coins.isGreaterThanOrEqualTo(stone_mine_price):
+		$Canvas/ScrollContainer/Control/stone_mine.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/stone_mine.disabled = true
+	$Canvas/ScrollContainer/Control/stone_mine.text = "Stone mine | %s cps
+%s coins" % [stone_mine_power.toMetricSymbol(), stone_mine_price.toMetricSymbol()]
+# coal_mine button
+	if coins.isGreaterThanOrEqualTo(coal_mine_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/coal_mine.visible = true
+	if coins.isGreaterThanOrEqualTo(coal_mine_price):
+		$Canvas/ScrollContainer/Control/coal_mine.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/coal_mine.disabled = true
+	$Canvas/ScrollContainer/Control/coal_mine.text = "Stone mine | %s cps
+%s coins" % [coal_mine_power.toMetricSymbol(), coal_mine_price.toMetricSymbol()]
+
+# iron_mine button
+	if coins.isGreaterThanOrEqualTo(iron_mine_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/iron_mine.visible = true
+	if coins.isGreaterThanOrEqualTo(iron_mine_price):
+		$Canvas/ScrollContainer/Control/iron_mine.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/iron_mine.disabled = true
+	$Canvas/ScrollContainer/Control/iron_mine.text = "Stone mine | %s cps
+%s coins" % [iron_mine_power.toMetricSymbol(), iron_mine_price.toMetricSymbol()]
+# gold_mine button
+	if coins.isGreaterThanOrEqualTo(gold_mine_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/gold_mine.visible = true
+	if coins.isGreaterThanOrEqualTo(gold_mine_price):
+		$Canvas/ScrollContainer/Control/gold_mine.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/gold_mine.disabled = true
+	$Canvas/ScrollContainer/Control/gold_mine.text = "Stone mine | %s cps
+%s coins" % [gold_mine_power.toMetricSymbol(), gold_mine_price.toMetricSymbol()]
+# diamond_mine button
+	if coins.isGreaterThanOrEqualTo(diamond_mine_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/diamond_mine.visible = true
+	if coins.isGreaterThanOrEqualTo(diamond_mine_price):
+		$Canvas/ScrollContainer/Control/diamond_mine.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/diamond_mine.disabled = true
+	$Canvas/ScrollContainer/Control/diamond_mine.text = "Stone mine | %s cps
+%s coins" % [diamond_mine_power.toMetricSymbol(), diamond_mine_price.toMetricSymbol()]
+	pass
 
 
 func _on_color_rect_mouse_exited():
@@ -110,7 +174,6 @@ func _on_cursor_pressed():
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [cursor_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
-	pass
 	pass
 
 func _on_hand_btn_pressed():
@@ -135,7 +198,6 @@ func _on_pickaxe_btn_pressed():
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
 
-
 func _on_miner_btn_pressed():
 	if coins.minus(miner_price).isPositive() and coins.isGreaterThanOrEqualTo(miner_price):
 		coins = Big.subtract(coins,miner_price)
@@ -146,7 +208,6 @@ func _on_miner_btn_pressed():
 %s needed.[/center]" % [miner_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
-
 
 func _on_drill_btn_pressed():
 	if coins.minus(drill_price).isPositive() and coins.isGreaterThanOrEqualTo(drill_price):
@@ -159,4 +220,58 @@ func _on_drill_btn_pressed():
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
 
+func _on_stone_mine_pressed():
+	if coins.minus(stone_mine_price).isPositive() and coins.isGreaterThanOrEqualTo(stone_mine_price):
+		coins = Big.subtract(coins,stone_mine_price)
+		cps.plusEquals(stone_mine_power)
+		stone_mine_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [stone_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
 
+func _on_coal_mine_pressed():
+	if coins.minus(coal_mine_price).isPositive() and coins.isGreaterThanOrEqualTo(coal_mine_price):
+		coins = Big.subtract(coins,coal_mine_price)
+		cps.plusEquals(coal_mine_power)
+		coal_mine_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [coal_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+
+
+func _on_iron_mine_pressed():
+	if coins.minus(iron_mine_price).isPositive() and coins.isGreaterThanOrEqualTo(iron_mine_price):
+		coins = Big.subtract(coins,iron_mine_price)
+		cps.plusEquals(iron_mine_power)
+		iron_mine_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [iron_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+
+func _on_gold_mine_pressed():
+	if coins.minus(gold_mine_price).isPositive() and coins.isGreaterThanOrEqualTo(gold_mine_price):
+		coins = Big.subtract(coins,gold_mine_price)
+		cps.plusEquals(gold_mine_power)
+		gold_mine_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [gold_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+
+func _on_diamond_mine_pressed():
+	if coins.minus(diamond_mine_price).isPositive() and coins.isGreaterThanOrEqualTo(diamond_mine_price):
+		coins = Big.subtract(coins,diamond_mine_price)
+		cps.plusEquals(diamond_mine_power)
+		diamond_mine_price.timesEquals(1.2)
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [diamond_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass

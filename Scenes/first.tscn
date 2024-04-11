@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyesp2fngpjbj"]
+[gd_scene load_steps=17 format=3 uid="uid://cyesp2fngpjbj"]
 
 [ext_resource type="Texture2D" uid="uid://6ekq3gxdbppi" path="res://sprites/ground.png" id="1_0aun0"]
 [ext_resource type="Script" path="res://Scenes/first.gd" id="1_qyulj"]
@@ -8,6 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://emc05tekq3o4" path="res://sprites/miner.png" id="4_3nisy"]
 [ext_resource type="Texture2D" uid="uid://bqrbfmebubx62" path="res://sprites/drill.png" id="5_42csk"]
 [ext_resource type="Texture2D" uid="uid://cxxn2x3km0ylb" path="res://sprites/pickaxe.png" id="5_qgg7x"]
+[ext_resource type="Texture2D" uid="uid://dgyp6wtve1cy2" path="res://sprites/stone_mine.png" id="9_vp630"]
+[ext_resource type="Texture2D" uid="uid://qrgdb5rnl21g" path="res://sprites/coal_mine.png" id="10_t5htj"]
+[ext_resource type="Texture2D" uid="uid://cxbn37kp62eiu" path="res://sprites/iron_mine.png" id="11_v6fvf"]
+[ext_resource type="Texture2D" uid="uid://p8acpsj8giao" path="res://sprites/gold_mine.png" id="12_y7x8c"]
+[ext_resource type="Texture2D" uid="uid://fti3502icoqo" path="res://sprites/diamond_mine.png" id="13_07yjg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjw4j"]
 texture = ExtResource("2_vvn7b")
@@ -33,7 +38,7 @@ texture = ExtResource("1_0aun0")
 [node name="DisplayToolsRect" type="ColorRect" parent="Canvas"]
 offset_left = 456.0
 offset_top = 128.0
-offset_right = 888.0
+offset_right = 848.0
 offset_bottom = 640.0
 color = Color(0, 0, 0, 0.211765)
 
@@ -82,7 +87,7 @@ scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_w8fyv")
 
 [node name="ShopRect" type="ColorRect" parent="Canvas"]
-offset_left = 896.0
+offset_left = 856.0
 offset_top = 128.0
 offset_right = 1152.0
 offset_bottom = 640.0
@@ -99,22 +104,24 @@ text = "SHOP"
 scroll_active = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Canvas"]
+clip_contents = false
 custom_minimum_size = Vector2(63.365, 82.735)
 offset_left = 912.0
 offset_top = 168.0
 offset_right = 1153.0
-offset_bottom = 560.0
+offset_bottom = 600.0
 follow_focus = true
 vertical_scroll_mode = 2
 
 [node name="Control" type="Control" parent="Canvas/ScrollContainer"]
-custom_minimum_size = Vector2(226.21, 1018.36)
+custom_minimum_size = Vector2(226.21, 1153.94)
 layout_mode = 2
 
 [node name="cursor" type="Button" parent="Canvas/ScrollContainer/Control"]
 layout_mode = 2
+offset_left = -48.0
 offset_right = 232.0
-offset_bottom = 56.0
+offset_bottom = 64.0
 theme_override_colors/font_color = Color(0.254902, 0.690196, 0.756863, 1)
 theme_override_constants/outline_size = 0
 text = "Upgrade cursor"
@@ -125,9 +132,12 @@ expand_icon = true
 [node name="hand" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 64.0
+offset_left = -48.0
+offset_top = 72.0
 offset_right = 232.0
-offset_bottom = 118.0
+offset_bottom = 136.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 text = "Hand
 5 cps"
 icon = ExtResource("3_h17m5")
@@ -137,9 +147,12 @@ expand_icon = true
 [node name="pickaxe" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 128.0
+offset_left = -48.0
+offset_top = 144.0
 offset_right = 232.0
-offset_bottom = 182.0
+offset_bottom = 208.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 text = "Pickaxe | 
 100 cps"
 icon = ExtResource("5_qgg7x")
@@ -149,9 +162,12 @@ expand_icon = true
 [node name="miner" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 192.0
+offset_left = -48.0
+offset_top = 216.0
 offset_right = 232.0
-offset_bottom = 248.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 text = "Miner |
 500 cps"
 icon = ExtResource("4_3nisy")
@@ -161,9 +177,12 @@ expand_icon = true
 [node name="drill" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 256.0
+offset_left = -48.0
+offset_top = 288.0
 offset_right = 232.0
-offset_bottom = 312.0
+offset_bottom = 352.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 text = "Drill
 30 cps"
 icon = ExtResource("5_42csk")
@@ -173,59 +192,77 @@ expand_icon = true
 [node name="stone_mine" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 320.0
+offset_left = -48.0
+offset_top = 360.0
 offset_right = 232.0
-offset_bottom = 376.0
-icon = ExtResource("2_vvn7b")
+offset_bottom = 424.0
+theme_override_font_sizes/font_size = 14
+disabled = true
+icon = ExtResource("9_vp630")
 alignment = 0
 expand_icon = true
 
 [node name="coal_mine" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 384.0
+offset_left = -48.0
+offset_top = 432.0
 offset_right = 232.0
-offset_bottom = 440.0
-icon = ExtResource("2_vvn7b")
+offset_bottom = 496.0
+theme_override_font_sizes/font_size = 14
+disabled = true
+icon = ExtResource("10_t5htj")
 alignment = 0
 expand_icon = true
 
 [node name="iron_mine" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 448.0
+offset_left = -48.0
+offset_top = 504.0
 offset_right = 232.0
-offset_bottom = 504.0
-icon = ExtResource("2_vvn7b")
+offset_bottom = 568.0
+theme_override_font_sizes/font_size = 14
+disabled = true
+icon = ExtResource("11_v6fvf")
 alignment = 0
 expand_icon = true
 
 [node name="gold_mine" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 512.0
+offset_left = -48.0
+offset_top = 576.0
 offset_right = 232.0
-offset_bottom = 568.0
-icon = ExtResource("2_vvn7b")
+offset_bottom = 640.0
+theme_override_font_sizes/font_size = 14
+disabled = true
+icon = ExtResource("12_y7x8c")
 alignment = 0
 expand_icon = true
 
 [node name="diamond_mine" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 576.0
+offset_left = -48.0
+offset_top = 648.0
 offset_right = 232.0
-offset_bottom = 632.0
-icon = ExtResource("2_vvn7b")
+offset_bottom = 712.0
+theme_override_font_sizes/font_size = 14
+disabled = true
+icon = ExtResource("13_07yjg")
 alignment = 0
 expand_icon = true
 
 [node name="delivery_service" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 640.0
+offset_left = -48.0
+offset_top = 720.0
 offset_right = 232.0
-offset_bottom = 696.0
+offset_bottom = 784.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -233,9 +270,12 @@ expand_icon = true
 [node name="wizard" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 704.0
+offset_left = -48.0
+offset_top = 792.0
 offset_right = 232.0
-offset_bottom = 760.0
+offset_bottom = 856.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -243,9 +283,12 @@ expand_icon = true
 [node name="portal" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 768.0
+offset_left = -48.0
+offset_top = 864.0
 offset_right = 232.0
-offset_bottom = 824.0
+offset_bottom = 928.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -253,9 +296,12 @@ expand_icon = true
 [node name="wishing_well" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 832.0
+offset_left = -48.0
+offset_top = 936.0
 offset_right = 232.0
-offset_bottom = 888.0
+offset_bottom = 1000.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -263,9 +309,12 @@ expand_icon = true
 [node name="particle_accelerator" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 896.0
+offset_left = -48.0
+offset_top = 1008.0
 offset_right = 232.0
-offset_bottom = 952.0
+offset_bottom = 1072.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -273,9 +322,12 @@ expand_icon = true
 [node name="terminal" type="Button" parent="Canvas/ScrollContainer/Control"]
 visible = false
 layout_mode = 2
-offset_top = 960.0
+offset_left = -48.0
+offset_top = 1080.0
 offset_right = 232.0
-offset_bottom = 1016.0
+offset_bottom = 1144.0
+theme_override_font_sizes/font_size = 14
+disabled = true
 icon = ExtResource("2_vvn7b")
 alignment = 0
 expand_icon = true
@@ -303,6 +355,11 @@ color = Color(0, 0, 0, 0.407843)
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/pickaxe" to="." method="_on_pickaxe_btn_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/miner" to="." method="_on_miner_btn_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/drill" to="." method="_on_drill_btn_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/stone_mine" to="." method="_on_stone_mine_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/coal_mine" to="." method="_on_coal_mine_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/iron_mine" to="." method="_on_iron_mine_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/gold_mine" to="." method="_on_gold_mine_pressed"]
+[connection signal="pressed" from="Canvas/ScrollContainer/Control/diamond_mine" to="." method="_on_diamond_mine_pressed"]
 [connection signal="meta_hover_ended" from="Canvas/Notification" to="." method="_on_notification_meta_hover_ended"]
 [connection signal="mouse_exited" from="Canvas/Notification" to="." method="_on_notification_mouse_exited"]
 [connection signal="mouse_exited" from="Canvas/Notification/ColorRect" to="." method="_on_color_rect_mouse_exited"]
