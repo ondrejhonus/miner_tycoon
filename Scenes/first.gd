@@ -2,7 +2,7 @@ extends Node2D
 
 var coins = Big.new(0.001)
 var cps = Big.new(0)
-var click_power = Big.new(1,5)
+var click_power = Big.new(1,0)
 var cursor_price = Big.new(1,2)
 
 var playtime_seconds = 0
