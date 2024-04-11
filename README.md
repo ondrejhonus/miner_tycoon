@@ -14,7 +14,7 @@
  ## Status ##
 
 <h4> 
-	🚧  Miner tycoon 🚀 Under construction...  🚧
+	🚧  Miner tycoon ⛏ Under construction...  🚧
 </h4> 
 
 ## 💭 About ##
@@ -45,7 +45,7 @@ so this time I tried my best to do some kind of clicker game.
 ❌ Import/Export save;\
 
 ##  📷 Screenshots ##
-<img>screenshots/11.4.2024.png</img>
+<img src="screenshots/11.4.2024.png" width="50%"></img>
 
 ## 🚀 Technologies ##
 
