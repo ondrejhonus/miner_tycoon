@@ -2,7 +2,7 @@ extends Node2D
 
 var coins = Big.new(0.001)
 var cps = Big.new(0)
-var click_power = Big.new(1,0)
+var click_power = Big.new(1,5)
 var cursor_price = Big.new(1,2)
 
 var playtime_seconds = 0
@@ -234,6 +234,21 @@ func _process(delta):
 		$Canvas/ScrollContainer/Control/diamond_mine.text = "Diamond mine
 %s coins" % [diamond_mine_price.toMetricSymbol()]
 	$Canvas/ScrollContainer/Control/diamond_mine.tooltip_text = "Each diamond_mine provides %s cps" % [diamond_mine_power.toMetricSymbol()]
+	
+# delivery_serice button
+	if coins.isGreaterThanOrEqualTo(delivery_service_price.dividedBy(100).times(80)):
+		$Canvas/ScrollContainer/Control/delivery_service.visible = true
+	if coins.isGreaterThanOrEqualTo(delivery_service_price):
+		$Canvas/ScrollContainer/Control/delivery_service.disabled = false
+	else:
+		$Canvas/ScrollContainer/Control/delivery_service.disabled = true
+	if delivery_service_count > 0: 
+		$Canvas/ScrollContainer/Control/delivery_service.text = "Delivery service | %sx
+%s coins" % [delivery_service_count, delivery_service_price.toMetricSymbol()]
+	else:
+		$Canvas/ScrollContainer/Control/delivery_service.text = "Delivery service
+%s coins" % [delivery_service_price.toMetricSymbol()]
+	$Canvas/ScrollContainer/Control/delivery_service.tooltip_text = "Each delivery_service provides %s cps" % [delivery_service_power.toMetricSymbol()]
 	pass
 
 
@@ -363,5 +378,17 @@ func _on_diamond_mine_pressed():
 	else:
 		$Canvas/Notification.text = "[center]Not enough money!
 %s needed.[/center]" % [diamond_mine_price.minus(coins).toMetricSymbol()]
+		$Canvas/Notification/ColorRect.visible = true;
+	pass
+
+func _on_delivery_service_pressed():
+	if coins.minus(delivery_service_price).isPositive() and coins.isGreaterThanOrEqualTo(delivery_service_price):
+		coins = Big.subtract(coins,delivery_service_price)
+		cps.plusEquals(delivery_service_power)
+		delivery_service_price.timesEquals(1.2)
+		delivery_service_count += 1
+	else:
+		$Canvas/Notification.text = "[center]Not enough money!
+%s needed.[/center]" % [delivery_service_price.minus(coins).toMetricSymbol()]
 		$Canvas/Notification/ColorRect.visible = true;
 	pass
