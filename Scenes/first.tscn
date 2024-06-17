@@ -41,7 +41,7 @@ texture = ExtResource("7_h6s7i")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ch6sv"]
 texture = ExtResource("6_eni0o")
 
-[node name="Node" type="Node2D"]
+[node name="Node" type="Node2D" groups=["Persist"]]
 position = Vector2(0, -4)
 script = ExtResource("1_qyulj")
 
