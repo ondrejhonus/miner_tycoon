@@ -77,6 +77,67 @@ func save_score() -> void:
 	file.store_line(click_power.toString())
 	file.store_line(cursor_price.toString())
 	file.store_32(playtime_seconds)
+	
+	file.store_line(hand_price.toString())
+	file.store_line(hand_power.toString())
+	file.store_32(hand_count)
+	
+	file.store_line(pickaxe_price.toString())
+	file.store_line(pickaxe_power.toString())
+	file.store_32(pickaxe_count)
+		
+	file.store_line(miner_price.toString())
+	file.store_line(miner_power.toString())
+	file.store_32(miner_count)
+		
+	file.store_line(drill_price.toString())
+	file.store_line(drill_power.toString())
+	file.store_32(drill_count)
+	
+	file.store_line(stone_mine_price.toString())
+	file.store_line(stone_mine_power.toString())
+	file.store_32(stone_mine_count)
+	
+	file.store_line(coal_mine_price.toString())
+	file.store_line(coal_mine_power.toString())
+	file.store_32(coal_mine_count)
+		
+	file.store_line(iron_mine_price.toString())
+	file.store_line(iron_mine_power.toString())
+	file.store_32(iron_mine_count)
+		
+	file.store_line(gold_mine_price.toString())
+	file.store_line(gold_mine_power.toString())
+	file.store_32(gold_mine_count)
+		
+	file.store_line(diamond_mine_price.toString())
+	file.store_line(diamond_mine_power.toString())
+	file.store_32(diamond_mine_count)
+	
+	file.store_line(delivery_service_price.toString())
+	file.store_line(delivery_service_power.toString())
+	file.store_32(delivery_service_count)
+			
+	file.store_line(wizard_price.toString())
+	file.store_line(wizard_power.toString())
+	file.store_32(wizard_count)
+	
+	file.store_line(portal_price.toString())
+	file.store_line(portal_power.toString())
+	file.store_32(portal_count)
+			
+	file.store_line(wishing_well_price.toString())
+	file.store_line(wishing_well_power.toString())
+	file.store_32(wishing_well_count)
+				
+	file.store_line(particle_accelerator_price.toString())
+	file.store_line(particle_accelerator_power.toString())
+	file.store_32(particle_accelerator_count)
+	
+	file.store_line(terminal_price.toString())
+	file.store_line(terminal_power.toString())
+	file.store_32(terminal_count)
+	
 	file.close()
 	print("Score saved successfully")
 	pass
@@ -89,6 +150,63 @@ func load_score() -> void:
 		click_power = Big.new(file.get_line())
 		cursor_price = Big.new(file.get_line())
 		playtime_seconds = file.get_32()
+		
+		hand_price = Big.new(file.get_line())
+		hand_power = Big.new(file.get_line())
+		hand_count = file.get_32()
+		
+		pickaxe_price = Big.new(file.get_line())
+		pickaxe_power = Big.new(file.get_line())
+		pickaxe_count = file.get_32()
+		
+		miner_price = Big.new(file.get_line())
+		miner_power = Big.new(file.get_line())
+		miner_count = file.get_32()
+		
+		drill_price = Big.new(file.get_line())
+		drill_power = Big.new(file.get_line())
+		drill_count = file.get_32()
+		
+		stone_mine_price = Big.new(file.get_line())
+		stone_mine_power = Big.new(file.get_line())
+		stone_mine_count = file.get_32()
+		
+		coal_mine_price = Big.new(file.get_line())
+		coal_mine_power = Big.new(file.get_line())
+		coal_mine_count = file.get_32()
+		
+		iron_mine_price = Big.new(file.get_line())
+		iron_mine_power = Big.new(file.get_line())
+		iron_mine_count = file.get_32()
+		
+		gold_mine_price = Big.new(file.get_line())
+		gold_mine_power = Big.new(file.get_line())
+		gold_mine_count = file.get_32()
+		
+		diamond_mine_price = Big.new(file.get_line())
+		diamond_mine_power = Big.new(file.get_line())
+		diamond_mine_count = file.get_32()
+		
+		delivery_service_price = Big.new(file.get_line())
+		delivery_service_power = Big.new(file.get_line())
+		delivery_service_count = file.get_32()
+		
+		wizard_price = Big.new(file.get_line())
+		wizard_power = Big.new(file.get_line())
+		wizard_count = file.get_32()
+		
+		portal_price = Big.new(file.get_line())
+		portal_power = Big.new(file.get_line())
+		portal_count = file.get_32()
+		
+		particle_accelerator_price = Big.new(file.get_line())
+		particle_accelerator_power = Big.new(file.get_line())
+		particle_accelerator_count = file.get_32()
+		
+		terminal_price = Big.new(file.get_line())
+		terminal_power = Big.new(file.get_line())
+		terminal_count = file.get_32()
+		
 		file.close()
 		print("Playtime loaded: ", playtime_seconds, "s")
 	else:
