@@ -72,12 +72,11 @@ var terminal_count = 0
 
 func save_score() -> void:
 	var file: FileAccess = FileAccess.open(SAVE_DIR, FileAccess.ModeFlags.WRITE)
-	file.store_string(coins.toPlainScientific())
-	file.store_string(cps.toPlainScientific())
-	file.store_string(click_power.toPlainScientific())
-	file.store_string(cursor_price.toPlainScientific())
+	file.store_line(coins.toString())
+	file.store_line(cps.toString())
+	file.store_line(click_power.toString())
+	file.store_line(cursor_price.toString())
 	file.store_32(playtime_seconds)
-
 	file.close()
 	print("Score saved successfully")
 	pass
@@ -85,16 +84,15 @@ func save_score() -> void:
 func load_score() -> void:
 	if FileAccess.file_exists(SAVE_DIR):
 		var file: FileAccess = FileAccess.open(SAVE_DIR, FileAccess.ModeFlags.READ)
-		coins = Big.new(file.get_as_text())
-		cps = Big.new(file.get_as_text())
-		click_power = Big.new(file.get_as_text())
-		cursor_price = Big.new(file.get_as_text())
+		coins = Big.new(file.get_line())
+		cps = Big.new(file.get_line())
+		click_power = Big.new(file.get_line())
+		cursor_price = Big.new(file.get_line())
 		playtime_seconds = file.get_32()
 		file.close()
-		print("Score loaded successfully: ", playtime_seconds)
-		print("coins: ", coins)
+		print("Playtime loaded: ", playtime_seconds, "s")
 	else:
-		print("Save file not found")
+		print("Save file not found, creating new game")
 
 func _ready():
 	Big.setSmallDecimals(1)
