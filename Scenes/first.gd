@@ -1,11 +1,13 @@
 extends Node2D
 
-const SAVE_DIR := "user://save.dat"
+const SAVE_DIR = "user://savedata.save"
+
 
 var coins = Big.new(0.001)
 var cps = Big.new(0)
 var click_power = Big.new(1,0)
 var cursor_price = Big.new(1,2)
+var already_saved = false
 
 var playtime_seconds = 0
 
@@ -69,88 +71,40 @@ var terminal_price = Big.new(31,16)
 var terminal_power = Big.new(15,10)
 var terminal_count = 0
 
- 
-func save():
-	var save_dict = {
-	"filename" : get_scene_file_path(),
-	"parent" : get_parent().get_path(),
-	"playtime": playtime_seconds
-	}
-	return save_dict
+func save_score() -> void:
+	var save_path: String = "user://save_game.dat"
+	var file: FileAccess = FileAccess.open(save_path, FileAccess.ModeFlags.WRITE)
+	file.store_string(coins)
+	file.store_string(cps)
+	file.store_string(click_power)
+	file.store_string(cursor_price)
+	file.store_32(playtime_seconds)
+
+	file.close()
+	print("Score saved successfully")
+	pass
 	
-func save_game():
-	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
-	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	for node in save_nodes:
-		# Check the node is an instanced scene so it can be instanced again during load.
-		if node.scene_file_path.is_empty():
-			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
-			continue
-
-		# Check the node has a save function.
-		if !node.has_method("save"):
-			print("persistent node '%s' is missing a save() function, skipped" % node.name)
-			continue
-
-		# Call the node's save function.
-		var node_data = node.call("save")
-
-		# JSON provides a static method to serialized JSON string.
-		var json_string = JSON.stringify(node_data)
-
-		# Store the save dictionary as a new line in the save file.
-		save_game.store_line(json_string)
-
-# Note: This can be called from anywhere inside the tree. This function
-# is path independent.
-func load_game():
-	if not FileAccess.file_exists("user://savegame.save"):
-		print("There is no save to load")
-		return # Error! We don't have a save to load.		
-
-	# We need to revert the game state so we're not cloning objects
-	# during loading. This will vary wildly depending on the needs of a
-	# project, so take care with this step.
-	# For our example, we will accomplish this by deleting saveable objects.
-	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	for i in save_nodes:
-		i.queue_free()
-
-	# Load the file line by line and process that dictionary to restore
-	# the object it represents.
-	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
-	while save_game.get_position() < save_game.get_length():
-		var json_string = save_game.get_line()
-
-		# Creates the helper class to interact with JSON
-		var json = JSON.new()
-
-		# Check if there is any error while parsing the JSON string, skip in case of failure
-		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue
-
-		# Get the data from the JSON object
-		var node_data = json.get_data()
-
-		# Firstly, we need to create the object and add it to the tree and set its position.
-		var new_object = load(node_data["filename"]).instantiate()
-		get_node(node_data["parent"]).add_child(new_object)
-
-		# Now we set the remaining variables.
-		for i in node_data.keys():
-			if i == "filename" or i == "parent":
-				continue
-			new_object.set(i, node_data[i])
+func load_score() -> void:
+	var save_path: String = "user://save_game.dat"
+	if FileAccess.file_exists(save_path):
+		var file: FileAccess = FileAccess.open(save_path, FileAccess.ModeFlags.READ)
+		coins = Big.new(file.get_as_text())
+		cps = Big.new(file.get_as_text())
+		click_power = Big.new(file.get_as_text())
+		cursor_price = Big.new(file.get_as_text())
+		playtime_seconds = file.get_32()
+		file.close()
+		print("Score loaded successfully: ", playtime_seconds)
+	else:
+		print("Save file not found")
 
 func _ready():
-	load_game()
 	Big.setSmallDecimals(1)
 	Big.setThousandDecimals(2)
 	Big.setBigDecimals(3)
 	$Canvas/ClickingRect/RichTextLabel.text =  "[center]%s coins
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
+	load_score()
 	pass
 
 
@@ -166,11 +120,16 @@ func playtime(total_seconds: float) -> String:
 	return timer
 
 func _process(delta):
-	# Save game every minute
-	if (playtime_seconds % 60.0 == 0):
+	# Save game every five minutes
+	if (int(playtime_seconds) % 300 == 0 and playtime_seconds > 1 and already_saved == false):
 		$Canvas/Notification.text = "[center]Game saved automatically[/center]"
-		save_game()
-		
+		$Canvas/Notification/ColorRect.visible = true;
+		save_score()
+		already_saved = true
+
+	if (int(playtime_seconds) % 301 == 0 and playtime_seconds > 1 and already_saved == true):
+		already_saved = false
+
 # Coin system
 	coins.plusEquals(cps.times(delta))
 	$Canvas/ClickingRect/RichTextLabel.text = "[center]%s coins
