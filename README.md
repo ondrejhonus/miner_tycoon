@@ -34,10 +34,10 @@ so this time I tried my best to do some kind of clicker game.
 ✅ Timer;\
 ✅ See the number of stuff you own;\
 ❌ See the stuff you bought in the middle;\
-❌ Make button functions into one big function;\
+✅ Make button functions into one big function;\
 ❌ Item upgrades;\
-❌ Saves;\
-❌ Autosaves;\
+✅ Saves;\
+✅ Autosaves;\
 ✅🟧 Good graphics (maybe pixel art);\
 ❌ BG music;\
 ❌ AFK income;\
