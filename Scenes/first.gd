@@ -2,7 +2,6 @@ extends Node2D
 
 const SAVE_DIR = "user://savedata.save"
 
-
 var coins = Big.new(0.001)
 var cps = Big.new(0)
 var click_power = Big.new(1,0)
@@ -72,12 +71,11 @@ var terminal_power = Big.new(15,10)
 var terminal_count = 0
 
 func save_score() -> void:
-	var save_path: String = "user://save_game.dat"
-	var file: FileAccess = FileAccess.open(save_path, FileAccess.ModeFlags.WRITE)
-	file.store_string(coins)
-	file.store_string(cps)
-	file.store_string(click_power)
-	file.store_string(cursor_price)
+	var file: FileAccess = FileAccess.open(SAVE_DIR, FileAccess.ModeFlags.WRITE)
+	file.store_string(coins.toPlainScientific())
+	file.store_string(cps.toPlainScientific())
+	file.store_string(click_power.toPlainScientific())
+	file.store_string(cursor_price.toPlainScientific())
 	file.store_32(playtime_seconds)
 
 	file.close()
@@ -85,9 +83,8 @@ func save_score() -> void:
 	pass
 	
 func load_score() -> void:
-	var save_path: String = "user://save_game.dat"
-	if FileAccess.file_exists(save_path):
-		var file: FileAccess = FileAccess.open(save_path, FileAccess.ModeFlags.READ)
+	if FileAccess.file_exists(SAVE_DIR):
+		var file: FileAccess = FileAccess.open(SAVE_DIR, FileAccess.ModeFlags.READ)
 		coins = Big.new(file.get_as_text())
 		cps = Big.new(file.get_as_text())
 		click_power = Big.new(file.get_as_text())
@@ -95,6 +92,7 @@ func load_score() -> void:
 		playtime_seconds = file.get_32()
 		file.close()
 		print("Score loaded successfully: ", playtime_seconds)
+		print("coins: ", coins)
 	else:
 		print("Save file not found")
 
@@ -121,13 +119,13 @@ func playtime(total_seconds: float) -> String:
 
 func _process(delta):
 	# Save game every five minutes
-	if (int(playtime_seconds) % 300 == 0 and playtime_seconds > 1 and already_saved == false):
+	if (int(playtime_seconds) % 10 == 0 and playtime_seconds > 1 and already_saved == false):
 		$Canvas/Notification.text = "[center]Game saved automatically[/center]"
 		$Canvas/Notification/ColorRect.visible = true;
 		save_score()
 		already_saved = true
 
-	if (int(playtime_seconds) % 301 == 0 and playtime_seconds > 1 and already_saved == true):
+	if (int(playtime_seconds) % 11 == 0 and playtime_seconds > 1 and already_saved == true):
 		already_saved = false
 
 # Coin system
