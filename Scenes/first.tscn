@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cyesp2fngpjbj"]
+[gd_scene load_steps=24 format=3 uid="uid://cyesp2fngpjbj"]
 
 [ext_resource type="Script" path="res://Scenes/first.gd" id="1_qyulj"]
 [ext_resource type="Texture2D" uid="uid://i3ph74i10bxa" path="res://sprites/pixel_ground.png" id="2_g1i0o"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://r3s1w5nfspbr" path="res://sprites/hand.png" id="3_h17m5"]
 [ext_resource type="Texture2D" uid="uid://b283k4s6x2t2a" path="res://sprites/cursor.png" id="3_w8fyv"]
 [ext_resource type="Texture2D" uid="uid://emc05tekq3o4" path="res://sprites/miner.png" id="4_3nisy"]
-[ext_resource type="Texture2D" uid="uid://bqrbfmebubx62" path="res://sprites/drill.png" id="5_42csk"]
 [ext_resource type="Texture2D" uid="uid://cxxn2x3km0ylb" path="res://sprites/pickaxe.png" id="5_qgg7x"]
 [ext_resource type="FontFile" uid="uid://dk447tcykk8ys" path="res://fonts/PressStart2P-Regular.ttf" id="5_wfsna"]
 [ext_resource type="Texture2D" uid="uid://bw5pkdoai5api" path="res://sprites/button.png" id="6_eni0o"]
@@ -214,7 +213,6 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxTexture_ch6sv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_oy6cy")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7x6tl")
-icon = ExtResource("5_42csk")
 alignment = 0
 expand_icon = true
 
@@ -422,6 +420,13 @@ theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 text = "Playtime: XXh XXm XXs"
 
+[node name="save_button" type="Button" parent="Canvas"]
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 117.0
+offset_bottom = 50.0
+text = "SAVE"
+
 [connection signal="pressed" from="Canvas/ClickingRect/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/cursor" to="." method="_on_cursor_pressed"]
 [connection signal="pressed" from="Canvas/ScrollContainer/Control/hand" to="." method="_on_hand_btn_pressed"]
@@ -437,3 +442,4 @@ text = "Playtime: XXh XXm XXs"
 [connection signal="mouse_exited" from="Canvas/Notification" to="." method="_on_notification_mouse_exited"]
 [connection signal="mouse_exited" from="Canvas/Notification/ColorRect" to="." method="_on_color_rect_mouse_exited"]
 [connection signal="visibility_changed" from="Canvas/Notification/ColorRect" to="." method="_on_color_rect_visibility_changed"]
+[connection signal="pressed" from="Canvas/save_button" to="." method="_on_save_button_pressed"]

@@ -9,11 +9,15 @@ const SAVE_DIR = "user://savedata.save"
 
 var coins = Big.new(0.001)
 var cps = Big.new(0)
-var click_power = Big.new(1,20)
+var click_power = Big.new(1,0)
 var cursor_price = Big.new(1,2)
 
 var already_saved = false
 var playtime_seconds = 0
+var leave_time = 0
+var current_time = get_time()
+# The ammount of time the user was gone
+var time_elapsed = 0
 
 var hand_price = Big.new(15)
 var hand_power = Big.new(0.1)
@@ -232,13 +236,24 @@ func load_score() -> void:
 #################################################################################
 ############################### ON LOAD #########################################
 #################################################################################
+
+func afk_time_handler():
+	current_time = get_time()
+	var difference =  (current_time - leave_time)
+	coins += ((hand_count * hand_power) + (pickaxe_count * pickaxe_power) + (miner_count * miner_power) +
+	(drill_count * drill_power) + (stone_mine_count * stone_mine_power) + (coal_mine_count * coal_mine_power) + 
+	(iron_mine_count * iron_mine_count) + (gold_mine_count * gold_mine_power) + (diamond_mine_count * diamond_mine_power) +
+	(delivery_service_count * delivery_service_power) + (wizard_count * wizard_power) + (portal_count *portal_power) + (wishing_well_count * wishing_well_power) + 
+	(particle_accelerator_count * particle_accelerator_power) + (terminal_count * terminal_power)) * 0.1
+
 func _ready():
 	Big.setSmallDecimals(1)
 	Big.setThousandDecimals(2)
 	Big.setBigDecimals(3)
 	$Canvas/ClickingRect/RichTextLabel.text =  "[center]%s coins
 %s cps[/center]" % [coins.toMetricSymbol(), cps.toMetricSymbol()]
-	load_score()
+	await (load_score())
+	afk_time_handler()
 
 #################################################################################
 ####################### SECONDS TO TIME FORMAT ##################################
@@ -295,7 +310,11 @@ func handle_button_visibility(variable, short):
 	else:
 		node.text = "%s
 %s coins" % [variable.capitalize(), price.toMetricSymbol()]
-	node.tooltip_text = "Each %s provides %s cps" % [variable, hand_power.toMetricSymbol()]
+	node.tooltip_text = "Each %s provides %s cps" % [variable, power.toMetricSymbol()]
+
+func get_time():
+	return Time.get_unix_time_from_system()
+
 
 #############################
 ####### LOOP FUNCTION #######
@@ -306,6 +325,7 @@ func _process(delta):
 	if (int(playtime_seconds) % 300 == 0 and playtime_seconds > 1 and already_saved == false):
 		notify_user("Game saved automatically")
 		save_score()
+		leave_time = get_time()
 		already_saved = true
 		
 ## Prevent saving for a thousand times in the second
@@ -432,4 +452,5 @@ func _on_delivery_service_pressed():
 func _on_save_button_pressed():
 	notify_user("
 Game saved!")
+	leave_time = get_time()
 	save_score()

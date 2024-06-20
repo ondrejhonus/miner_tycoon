@@ -235,8 +235,8 @@ static var options = {
 	"big_decimals": 1, 
 	"scientific_decimals": 1, 
 	"logarithmic_decimals": 1, 
-	"thousand_separator": " ", 
-	"decimal_separator": " ", 
+	"thousand_separator": ",", 
+	"decimal_separator": ".", 
 	"suffix_separator": "", 
 	"reading_separator": "", 
 	"thousand_name": "thousand"
